@@ -20,6 +20,12 @@
         >
           🌐 主页
         </b-navbar-item>
+        <b-navbar-item
+          tag="router-link"
+          :to="{ path: '/' }"
+        >
+          🗺️ 地图显示
+        </b-navbar-item>
       </template>
 
       <template slot="end">

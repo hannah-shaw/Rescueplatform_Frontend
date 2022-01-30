@@ -6,11 +6,11 @@
     <div class="container context">
       <div class="box">🔔 通知：{{  }}</div>
       <div class="columns">
-        <div class="column is-three-quarters">
-          <TopicList></TopicList>
-        </div>
         <div class="column">
           <PostButton></PostButton>
+        </div>
+        <div class="column is-three-quarters">
+          <TopicList></TopicList>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import PostButton from "@/views/user/post/PostButton"
+import PostButton from "@/components/user/post/PostButton"
 import PostList from '@/views/user/post/Index'
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";

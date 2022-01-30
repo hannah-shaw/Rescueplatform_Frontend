@@ -5,23 +5,22 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="求助信息" name="seek">
             <article
-              v-for="(item, index) in articleList"
+              v-for="(item, index) in seekArticleList"
               :key="index"
               class="media"
             >
-              <!--标题-->
               <div class="media-content">
-                <div class="">
-                  <p class="post-content">
-                    <span class="is-size-6">描述：{{ item.discription }}address</span>
+                <div class="post-main">
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">详情：{{ item.discription }}</span>
                   </p>
-                  <p class="post-content">
-                    <span class="is-size-6">求助人：{{ item.name }}address</span>
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">求助者：{{ item.name }}</span>
                   </p>
-                  <p class="post-content">
+                  <p class="level-left mt-2">
                     <span class="is-size-6">电话：{{ item.phone }}</span>
                   </p>
-                  <p class="post-content">
+                  <p class="level-left mt-2">
                     <span class="is-size-6">位置：{{ item.address }}</span>
                   </p>
                 </div>
@@ -33,27 +32,66 @@
                         发布于:{{ dayjs(item.createTime).format("YYYY/MM/DD") }}
                       </span>
                       <!--核实情况-->
-                      <span
-                        class="tag  is-danger is-light mr-1"
-                      >
+                      <span class="tag is-danger is-light mr-1">
                         {{ item.checked }}
                       </span>
                       <!--安全情况-->
-                      <span
-                        class="tag  is-success is-light mr-1"
-                      >
+                      <span class="tag is-success is-light mr-1">
                         {{ item.saved }}
                       </span>
                       <!--浏览量-->
-                      <span class="is-hidden-mobile">浏览:{{ item.views }}</span>
+                      <span class="is-hidden-mobile"
+                        >浏览:{{ item.views }}</span
+                      >
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </article>
+          </el-tab-pane>
+          <el-tab-pane label="帮助信息" name="offer">
+            <article
+              v-for="(item, index) in offerArticleList"
+              :key="index"
+              class="media"
+            >
+              <div class="media-content">
+                <div class="post-main">
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">详情：{{ item.discription }}</span>
+                  </p>
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">帮助者：{{ item.name }}</span>
+                  </p>
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">电话：{{ item.phone }}</span>
+                  </p>
+                  <p class="level-left mt-2">
+                    <span class="is-size-6">位置：{{ item.address }}</span>
+                  </p>
+                </div>
+                <nav class="level has-text-grey is-mobile is-size-7 mt-2">
+                  <div class="level-left">
+                    <div class="level-left">
+                      <!--时间-->
+                      <span class="mr-1">
+                        发布于:{{ dayjs(item.createTime).format("YYYY/MM/DD") }}
+                      </span>
+                      <!--核实情况-->
+                      <span class="tag is-danger is-light mr-1">
+                        {{ item.checked }}
+                      </span>
+                      <!--浏览量-->
+                      <span class="is-hidden-mobile"
+                        >浏览:{{ item.views }}</span
+                      >
                     </div>
                   </div>
                 </nav>
               </div>
               <div class="media-right" />
-            </article>
+            </article>    
           </el-tab-pane>
-          <el-tab-pane label="帮助信息" name="offer"> </el-tab-pane>
         </el-tabs>
       </div>
 
@@ -78,7 +116,29 @@ export default {
   data() {
     return {
       activeName: "seek",
-      articleList: [],
+      seekArticleList: [
+        {
+          description: "1",
+          name: "1",
+          phone: "1",
+          address: "1",
+          createTime: "2022-01-28 13:56:01",
+          checked: "1",
+          saved: "1",
+          views: "1",
+        },
+      ],
+      offerArticleList: [
+        {
+          description: "1",
+          name: "1",
+          phone: "1",
+          address: "1",
+          createTime: "2022-01-28 13:56:01",
+          checked: "1",
+          views: "1",
+        },
+      ],
       page: {
         current: 1,
         size: 10,
