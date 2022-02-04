@@ -29,7 +29,7 @@ export default {
       // 初始化地图,设置中心点坐标，
       var point = new BMap.Point(121.48789949, 31.24916171); // 初始化point, 给定一个默认x,y值
       map.centerAndZoom(point, 15);
-      map.enableScrollWheelZoom();
+      //map.enableScrollWheelZoom();
 
       // 获取当前地理位置
       var geolocation = new BMap.Geolocation();

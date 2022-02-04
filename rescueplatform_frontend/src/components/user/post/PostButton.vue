@@ -5,8 +5,8 @@
     </div>
 
     <div class="has-text-centered">
-      <b-button type="is-primary" tag="router-link" :to="{path:'/'}" outlined>提供帮助</b-button>
-      <b-button type="is-danger" tag="router-link" :to="{path:'/seekhelp'}" outlined class="ml-2">我要求助</b-button>
+      <b-button type="is-info" tag="router-link" :to="{path:'/offerhelp'}" outlined>提供帮助</b-button>
+      <b-button type="is-success" tag="router-link" :to="{path:'/seekhelp'}" outlined class="ml-2">我要求助</b-button>
     </div>
   </el-card>
 </template>

@@ -8,7 +8,7 @@
         <div class="column is-full">
           <el-card class="box-card" shadow="never">
             <div slot="header" class="clearfix">
-              <span><i class=" is-size-3"> 我要求助 </i></span>
+              <span><i class=" is-size-3"> 提供帮助 </i></span>
             </div>
             <div>
               <el-form
@@ -31,34 +31,12 @@
                   />
                 </el-form-item>
 
-                <el-form-item label="情况描述" prop="description">
+                <el-form-item label="可提供帮助" prop="description">
                   <el-input
                     v-model="ruleForm.description"
-                    placeholder="请简要描述现场情况，如处境、需要的物资、是否有人受伤便于救援开展"
+                    placeholder="请简要描述避难所场所情况或是可以提供的帮助，例如饮用水、食物、住宿等"
                     type="textarea"
                   />
-                </el-form-item>
-
-                <el-form-item label="受灾人数">
-                    <el-select v-model="ruleForm.people" placeholder="您当前位置受灾人数">
-                    <el-option label="10人以下" value="1"></el-option>
-                    <el-option label="10人以上50人以下" value="10"></el-option>
-                    <el-option label="50人以上" value="50"></el-option>
-                    </el-select>
-                </el-form-item>
-
-                <el-form-item label="是否有老人" prop="old">
-                    <el-radio-group v-model="ruleForm.old">
-                    <el-radio label="是"></el-radio>
-                    <el-radio label="否"></el-radio>
-                    </el-radio-group>
-                </el-form-item>
-
-                <el-form-item label="是否有小孩" prop="child">
-                    <el-radio-group v-model="ruleForm.child">
-                    <el-radio label="是"></el-radio>
-                    <el-radio label="否"></el-radio>
-                    </el-radio-group>
                 </el-form-item>
 
                 <p class="md-2 level-left">输入选择当前位置</p>
@@ -113,9 +91,6 @@ export default {
           name:'',
           phone:'',
           description:'',
-          people:'',
-          old:'',
-          child:'',
           posx:'',
           posy:'',
           address:'',
@@ -124,9 +99,6 @@ export default {
           name:'',
           phone:'',
           description:'',
-          people:'',
-          old:'',
-          child:'',
           posx:'',
           posy:'',
           address:'',
@@ -140,7 +112,7 @@ export default {
             { required: true,validator: checkPhone, trigger: 'blur' }
           ],
           description: [
-            { required: true, message: '请输入情况描述', trigger: 'blur' },
+            { required: true, message: '请输入帮助说明', trigger: 'blur' },
             { min: 1, max: 60, message: '长度在 1 到 60 个字符', trigger: 'blur' }
           ],
       },
@@ -155,16 +127,6 @@ export default {
     //提交
     submitForm(formName) {
         this.sendForm = this.ruleForm;
-        if(this.ruleForm.old == "是"){
-            this.sendForm.old = 1
-        }else{
-            this.sendForm.old = 0
-        }
-        if(this.ruleForm.child == "是"){
-            this.sendForm.child = 1
-        }else{
-            this.sendForm.child = 0
-        }
         console.log(this.sendForm)
     },
     //重置

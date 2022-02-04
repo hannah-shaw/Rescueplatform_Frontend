@@ -3,35 +3,30 @@
     <div class="mb-5" v-if="refresh">
       <Header></Header>
     </div>
+
     <div class="container context">
-      <div class="box">🔔 {{ billboard.content }}</div>
-      <div class="columns">
-        <div class="column ">
-          <PostButton></PostButton>
+        <div class="box m-2">
+          <Map></Map>
         </div>
-        <div class="column is-three-quarters ">
-          <TopicList></TopicList>
-        </div>
-      </div>
     </div>
 
     <div>
       <Footer></Footer>
     </div>
-
   </div>
 </template>
 
 <script>
 import PostButton from "@/components/user/post/PostButton"
-import PostList from '@/views/user/post/Index'
+import Map from '@/components/map/SeekMap'
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 
 export default {
-  name: "Home",
-  components: {PostButton, TopicList: PostList,Header, Footer},
-  data() {
+  name: "SeekMap",
+  components: {PostButton,Map,Header,Footer},
+ 
+    data() {
     return {
       billboard: {
         content: "",
@@ -45,12 +40,7 @@ export default {
   },
   methods: {
     async fetchBillboard() {
-      /*
-      getBillboard().then((value) => {
-        const { data } = value;
-        this.billboard = data;
-      });
-      */
+        
     },
     //解决vue页头懒加载导致组件错位的问题
     refreshComp() {
@@ -65,3 +55,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.container {
+  min-height: 500px;
+}
+</style>
