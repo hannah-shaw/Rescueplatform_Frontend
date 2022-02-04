@@ -68,8 +68,33 @@ export default {
   },
   methods: {
     updataCaptcha() {
+      this.captchaUrl = "/captcha?time=" + new Date();
     },
     submitLogin() {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          this.loading = true;
+          this.postRequest("/login", this.loginForm).then((resp) => {
+            if (resp) {
+              this.loading = false;
+              const tokenStr = resp.obj.tokenHead + resp.obj.token;
+              window.sessionStorage.setItem("tokenStr", tokenStr);
+              let path = this.$route.query.redirect;
+              this.$router.replace(
+                path == "/" || path == undefined ? "/home" : path
+              );
+            } else {
+              this.loading = false;
+              this.loginForm.captcha = "";
+              this.captchaUrl = "/captcha?time=" + new Date();
+            }
+          });
+        } else {
+          this.$message.error("请输入全部信息");
+
+          return false;
+        }
+      });
     },
   },
 };

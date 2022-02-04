@@ -10,6 +10,10 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 //自定义样式
 import '@/assets/app.css'
+import { postRequest } from "./utils/api";
+import { putRequest } from "./utils/api";
+import { getRequest } from "./utils/api";
+import { deleteRequest } from "./utils/api";
 
 
 
@@ -36,6 +40,10 @@ Vue.use(BMap, {
 })
 
 Vue.config.productionTip = false
+Vue.prototype.postRequest = postRequest;
+Vue.prototype.putRequest = putRequest;
+Vue.prototype.getRequest = getRequest;
+Vue.prototype.deleteRequest = deleteRequest;
 
 
 
