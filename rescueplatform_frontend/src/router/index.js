@@ -11,6 +11,8 @@ import Detail from '../views/user/post/Detail.vue'
 import BackHome from '../views/admin/Home.vue'
 import Login from '../views/admin/Login.vue'
 
+import Test1 from '../views/test/test1.vue'
+import Test2 from '../views/test/test2.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +23,7 @@ const routes = [
     name: 'UserHome',
     component: UserHome,
     meta: { title: "首页" },
+    hidden: true
   },
   //发布求助
   {
@@ -28,6 +31,7 @@ const routes = [
     name: 'SeekHelp',
     component: SeekHelp,
     meta: { title: "发布求助" },
+    hidden: true
   },
   //发布帮助
   {
@@ -35,6 +39,7 @@ const routes = [
     name: 'OfferHelp',
     component: OfferHelp,
     meta: { title: "发布帮助" },
+    hidden: true
   },
   //求助地图
   {
@@ -42,6 +47,7 @@ const routes = [
     name: 'SeekMap',
     component: SeekMap,
     meta: { title: "求助信息地图显示" },
+    hidden: true
   },
   //帮助地图
   {
@@ -49,6 +55,7 @@ const routes = [
     name: 'HelpMap',
     component: HelpMap,
     meta: { title: "帮助信息地图显示" },
+    hidden: true
   },
   //详情
   {
@@ -56,6 +63,7 @@ const routes = [
     name: 'Detail',
     component: Detail,
     meta: { title: "详情" },
+    hidden: true
   },
   //后台登录
   {
@@ -69,7 +77,18 @@ const routes = [
     path: '/home',
     name: 'BackHome',
     component: BackHome,
-    
+    children: [
+      {
+        path: '/test1',
+        name: 'Test1',
+        component: Test1
+      },
+      {
+        path: '/test2',
+        name: 'Test2',
+        component: Test2
+      }
+    ]
   }
 
 ]
