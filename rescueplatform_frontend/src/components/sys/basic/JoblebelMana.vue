@@ -44,7 +44,7 @@
         size="small"
         stripe
         border
-        style="width: 70%; margin-top: 10px"
+        style="width: 92%; margin-top: 10px"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55"> </el-table-column>

@@ -17,6 +17,13 @@
         @click="addPosition"
         >添加</el-button
       >
+      <el-button
+        size="small"
+        type="danger"
+        :disabled="multipleSelection.length == 0"
+        @click="deleteMany"
+        >批量删除</el-button
+      >
     </div>
     <div>
       <el-table
@@ -24,7 +31,7 @@
         stripe
         border
         :data="positions"
-        style="width: 100%"
+        style="width: 75%"
         class="posManaMain"
         @selection-change="handleSelectionChange"
       >
@@ -35,6 +42,10 @@
         <el-table-column prop="createDate" label="创建时间" width="200">
         </el-table-column>
         <el-table-column prop="enabled" label="是否启用" width="120">
+          <template slot-scope="scope">
+            <el-tag type="success" v-if="scope.row.enabled">已启用</el-tag>
+            <el-tag type="danger" v-else>未启用</el-tag>
+          </template>
         </el-table-column>
         <el-table-column label="操作" width="150">
           <template slot-scope="scope">
@@ -51,13 +62,6 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-button
-      type="danger"
-      style="margin-top=10px"
-      :disabled="this.multipleSelection.length == 0"
-      @click="deleteMany"
-      >批量删除</el-button
-    >
     <el-dialog title="编辑职位" :visible.sync="dialogVisible" width="30%">
       <div>
         <el-tag>职位名称</el-tag>
