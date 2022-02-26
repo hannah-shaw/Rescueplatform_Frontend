@@ -14,7 +14,7 @@
           ></el-button>
           -->
           <el-dropdown class="userInfo" @command="commandHandler">
-            <span class="el-dropdown-link" style="color :white">
+            <span class="el-dropdown-link" style="color: white">
               {{ user.name }}<i><img :src="user.userFace" alt="" /></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -50,7 +50,27 @@
             </el-submenu>
           </el-menu>
         </el-aside>
-        <el-main> <router-view /> </el-main>
+        <el-main>
+          <el-breadcrumb
+            separator-class="el-icon-arrow-right"
+            v-if="this.$router.currentRoute.path != '/home'"
+          >
+            <el-breadcrumb-item :to="{ path: '/home' }"
+              >首页</el-breadcrumb-item
+            >
+            <el-breadcrumb-item>{{
+              this.$router.currentRoute.name
+            }}</el-breadcrumb-item>
+            </el-breadcrumb
+          >
+          <div
+            class="homeWelcome"
+            v-if="this.$router.currentRoute.path == '/home'"
+          >
+           欢迎来到应急管理平台
+          </div>
+          <router-view />
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -60,7 +80,7 @@ export default {
   name: "Home",
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem("user"))
+      user: JSON.parse(window.sessionStorage.getItem("user")),
     };
   },
   computed: {
@@ -68,7 +88,7 @@ export default {
       return this.$store.state.routes;
     },
   },
-  methods:{
+  methods: {
     commandHandler(command) {
       if (command == "logout") {
         this.$confirm("此操作将注销登录, 是否继续?", "提示", {
@@ -94,10 +114,9 @@ export default {
             });
           });
       } else if (command == "userinfo") {
-        
       }
     },
-  }
+  },
 };
 </script>
 <style scoped>
@@ -112,7 +131,7 @@ export default {
 .homeHeader .title {
   font-size: 30px;
   font-family: 华文楷体;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .homeHeader .userInfo {
   cursor: pointer;
@@ -126,18 +145,18 @@ export default {
 .homeWelcome {
   text-align: center;
   font-size: 30px;
-  font-family: "华文楷体";
+  font-family: 华文楷体;
   color: #769ec5;
   padding-top: 50px;
 }
 .homeRouterView {
   margin-top: 20px;
 }
-.el-dropdown-link{
+.el-dropdown-link {
   display: flex;
   align-items: center;
 }
-.el-dropdown-link img{
+.el-dropdown-link img {
   width: 48px;
   height: 48px;
   border-radius: 24px;
