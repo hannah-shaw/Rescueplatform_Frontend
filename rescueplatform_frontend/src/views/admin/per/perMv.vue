@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "perMv",
+  name: "PerMv",
 };
 </script>
 

@@ -41,17 +41,17 @@ export const formatRoutes = (routes) => {
             children: children,
             component(resolve) {
                 if (component.startsWith('Home')) {
-                    require(['../views/' + component + '.vue'], resolve);
+                    require(['../views/admin' + component + '.vue'], resolve);
                 } else if (component.startsWith('Emp')) {
-                    require(['../views/emp/' + component + '.vue'], resolve);
+                    require(['../views/admin/emp/' + component + '.vue'], resolve);
                 } else if (component.startsWith('Per')) {
-                    require(['../views/per/' + component + '.vue'], resolve);
+                    require(['../views/admin/per/' + component + '.vue'], resolve);
                 } else if (component.startsWith('Sal')) {
-                    require(['../views/sal/' + component + '.vue'], resolve);
+                    require(['../views/admin/sal/' + component + '.vue'], resolve);
                 } else if (component.startsWith('Sta')) {
-                    require(['../views/sta/' + component + '.vue'], resolve);
+                    require(['../views/admin/sta/' + component + '.vue'], resolve);
                 } else if (component.startsWith('Sys')) {
-                    require(['../views/sys/' + component + '.vue'], resolve);
+                    require(['../views/admin/sys/' + component + '.vue'], resolve);
                 }
             }
         }
