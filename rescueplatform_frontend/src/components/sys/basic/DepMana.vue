@@ -8,39 +8,41 @@
       >
       </el-input>
 
-      <el-tree
-        style="margin-top: 20px"
-        :data="deps"
-        :props="defaultProps"
-        :filter-node-method="filterNode"
-        :expand-on-click-node="false"
-        ref="tree"
-      >
-        <span
-          slot-scope="{ node, data }"
-          style="display: flex; justify-content: space-between; width: 100%"
+      <el-card class="box-card" style="width: 100%; margin-top: 10px">
+        <el-tree
+          style="margin-top: 20px"
+          :data="deps"
+          :props="defaultProps"
+          :filter-node-method="filterNode"
+          :expand-on-click-node="false"
+          ref="tree"
         >
-          <span>{{ node.label }}</span>
-          <span>
-            <el-button
-              style="padding: 2px"
-              type="primary"
-              size="mini"
-              @click="() => showAddDep(data)"
-            >
-              添加部门
-            </el-button>
-            <el-button
-              style="padding: 2px"
-              type="danger"
-              size="mini"
-              @click="() => deleteDep(data)"
-            >
-              删除部门
-            </el-button>
+          <span
+            slot-scope="{ node, data }"
+            style="display: flex; justify-content: space-between; width: 100%"
+          >
+            <span>{{ node.label }}</span>
+            <span>
+              <el-button
+                style="padding: 2px ; margin-left: 20px"
+                type="primary"
+                size="mini"
+                @click="() => showAddDep(data)"
+              >
+                添加部门
+              </el-button>
+              <el-button
+                style="padding: 2px ; margin-left: 20px"
+                type="danger"
+                size="mini"
+                @click="() => deleteDep(data)"
+              >
+                删除部门
+              </el-button>
+            </span>
           </span>
-        </span>
-      </el-tree>
+        </el-tree>
+      </el-card>
       <el-dialog title="添加部门" :visible.sync="dialogVisible" width="30%">
         <div>
           <table>
