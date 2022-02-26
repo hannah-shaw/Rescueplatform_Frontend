@@ -15,50 +15,52 @@
         >添加角色</el-button
       >
     </div>
-    <div class="permissManaMain">
-      <el-collapse v-model="activeName" accordion @change="change">
-        <el-collapse-item
-          :title="r.nameZh"
-          :name="r.id"
-          v-for="(r, index) in roles"
-          :key="index"
-        >
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>可访问资源</span>
-              <el-button
-                style="float: right; padding: 3px 0; color: #ff0000"
-                icon="el-icon-delete"
-                type="text"
-                @click="doDeleteRole(r)"
-              ></el-button>
-            </div>
-            <div>
-              <el-tree
-                show-checkbox
-                ref="tree"
-                :data="allMenus"
-                :props="defaultProps"
-                :default-checked-keys="selectedMenus"
-                :key="index"
-                node-key="id"
-              ></el-tree>
-              <div style="display: flex; justify-content: flex-end">
-                <el-button size="mini" @click="cancelUpdate"
-                  >取消修改</el-button
-                >
+    <el-card class="box-card" style="width: 65%; margin-top: 10px">
+      <div class="permissManaMain">
+        <el-collapse v-model="activeName" accordion @change="change">
+          <el-collapse-item
+            :title="r.nameZh"
+            :name="r.id"
+            v-for="(r, index) in roles"
+            :key="index"
+          >
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>可访问资源</span>
                 <el-button
-                  size="mini"
-                  type="primary"
-                  @click="doUpdate(r.id, index)"
-                  >确认修改</el-button
-                >
+                  style="float: right; padding: 3px 0; color: #ff0000"
+                  icon="el-icon-delete"
+                  type="text"
+                  @click="doDeleteRole(r)"
+                ></el-button>
               </div>
-            </div>
-          </el-card>
-        </el-collapse-item>
-      </el-collapse>
-    </div>
+              <div>
+                <el-tree
+                  show-checkbox
+                  ref="tree"
+                  :data="allMenus"
+                  :props="defaultProps"
+                  :default-checked-keys="selectedMenus"
+                  :key="index"
+                  node-key="id"
+                ></el-tree>
+                <div style="display: flex; justify-content: flex-end">
+                  <el-button size="mini" @click="cancelUpdate"
+                    >取消修改</el-button
+                  >
+                  <el-button
+                    size="mini"
+                    type="primary"
+                    @click="doUpdate(r.id, index)"
+                    >确认修改</el-button
+                  >
+                </div>
+              </div>
+            </el-card>
+          </el-collapse-item>
+        </el-collapse>
+      </div>
+    </el-card>
   </div>
 </template>
 
