@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+    <el-tabs v-model="activeName" type="card">
       <el-tab-pane label="部门管理" name="DepMana"><DepMana /></el-tab-pane>
       <el-tab-pane label="职位管理" name="PosMana"><PosMana /></el-tab-pane>
       <el-tab-pane label="职称管理" name="JoblebelMana"

@@ -86,6 +86,7 @@ export default {
         name: "",
       },
       positions: [],
+      //弹出框显示
       dialogVisible: false,
       updatePos: {
         name: "",
