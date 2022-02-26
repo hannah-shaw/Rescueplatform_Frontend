@@ -50,6 +50,17 @@ Vue.prototype.deleteRequest = deleteRequest;
 router.beforeEach((to, from, next) => {
   if (window.sessionStorage.getItem('tokenStr')) {
       initMenu(router, store);
+      if (!window.sessionStorage.getItem('user')) {
+        //  判断用户信息是否存在
+        return getRequest('/admin/info').then(resp => {
+            if (resp) {
+                window.sessionStorage.setItem('user', JSON.stringify(resp));
+                // this.$store.commit('INIT_ADMIN', resp);
+                //store.commit("INIT_ADMIN", resp);
+                next();
+            }
+        });
+    }
       next();
   } else {
       next();
