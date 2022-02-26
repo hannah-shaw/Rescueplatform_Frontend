@@ -14,7 +14,9 @@ import { postRequest } from "./utils/api";
 import { putRequest } from "./utils/api";
 import { getRequest } from "./utils/api";
 import { deleteRequest } from "./utils/api";
-
+import { initMenu } from './utils/menus';
+//font-awesome
+import 'font-awesome/css/font-awesome.css'
 
 
 
@@ -45,7 +47,14 @@ Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
 
-
+router.beforeEach((to, from, next) => {
+  if (window.sessionStorage.getItem('tokenStr')) {
+      initMenu(router, store);
+      next();
+  } else {
+      next();
+  }
+})
 
 new Vue({
   router,

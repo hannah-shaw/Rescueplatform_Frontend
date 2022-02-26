@@ -8,12 +8,15 @@
         <el-aside width="200px">
           <el-menu router unique-opened>
             <el-submenu
-              :index="1"
-              v-for="(item, index) in this.$store.state.routes"
+              :index="index + ''"
+              v-for="(item, index) in routes"
               :key="index"
             >
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i
+                  :class="item.iconCls"
+                  style="color: #769ec5; margin-right: 5px"
+                ></i>
                 <span>{{ item.name }}</span>
               </template>
               <el-menu-item
