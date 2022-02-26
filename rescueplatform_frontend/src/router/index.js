@@ -19,7 +19,7 @@ Vue.use(VueRouter)
 const routes = [
   //用户首页
   {
-    path: '/',
+    path: '/userhome',
     name: 'UserHome',
     component: UserHome,
     meta: { title: "首页" },
@@ -67,7 +67,7 @@ const routes = [
   },
   //后台登录
   {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: Login,
     hidden: true

@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header class="homeHeader">
-        <div class="title">应急信息平台管理系统</div>
+        <div class="title">应急平台管理系统</div>
       </el-header>
       <el-container>
         <el-aside width="200px">
