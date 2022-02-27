@@ -10,7 +10,7 @@ import Detail from '../views/user/post/Detail.vue'
 
 import BackHome from '../views/admin/Home.vue'
 import Login from '../views/admin/Login.vue'
-
+import FriendChat from '../views/admin/chat/FriendChat.vue'
 import Test1 from '../views/test/test1.vue'
 import Test2 from '../views/test/test2.vue'
 
@@ -78,6 +78,11 @@ const routes = [
     name: 'BackHome',
     component: BackHome,
     children: [
+      {
+        path: '/chat',
+        name: '在线聊天',
+        component: FriendChat,
+    },
       {
         path: '/test1',
         name: 'Test1',

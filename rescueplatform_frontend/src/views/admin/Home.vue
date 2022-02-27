@@ -4,15 +4,12 @@
       <el-header class="homeHeader">
         <div class="title">应急平台管理系统</div>
         <div>
-          <!--
           <el-button
-            icon="el-icon-my-message"
-            type="text"
+            icon="el-icon-chat-line-square"
             size="normal"
-            style="color: black; margin-right: 20px"
+            style="margin-right: 20px"
             @click="goChat"
           ></el-button>
-          -->
           <el-dropdown class="userInfo" @command="commandHandler">
             <span class="el-dropdown-link" style="color: white">
               {{ user.name }}<i><img :src="user.userFace" alt="" /></i>
@@ -89,6 +86,9 @@ export default {
     },
   },
   methods: {
+    goChat() {
+      this.$router.push("/chat");
+    },
     commandHandler(command) {
       if (command == "logout") {
         this.$confirm("此操作将注销登录, 是否继续?", "提示", {
