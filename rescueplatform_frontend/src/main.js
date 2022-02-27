@@ -18,7 +18,8 @@ import { initMenu } from './utils/menus';
 //font-awesome
 import 'font-awesome/css/font-awesome.css'
 
-
+//文件下载
+import { downloadRequest } from './utils/download'
 
 //时间格式
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -46,6 +47,7 @@ Vue.prototype.postRequest = postRequest;
 Vue.prototype.putRequest = putRequest;
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.deleteRequest = deleteRequest;
+Vue.prototype.downloadRequest = downloadRequest;
 
 router.beforeEach((to, from, next) => {
   if (window.sessionStorage.getItem('tokenStr')) {

@@ -353,16 +353,13 @@
             >年
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <el-button
               @click="showEditView(scope.row)"
               style="padding: 3px"
               size="mini"
               >编辑</el-button
-            >
-            <el-button style="padding: 3px" size="mini" type="primary"
-              >查看高级资料</el-button
             >
             <el-button
               style="padding: 3px"
