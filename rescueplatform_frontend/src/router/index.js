@@ -11,6 +11,7 @@ import Detail from '../views/user/post/Detail.vue'
 import BackHome from '../views/admin/Home.vue'
 import Login from '../views/admin/Login.vue'
 import FriendChat from '../views/admin/chat/FriendChat.vue'
+import AdminInfo from '../views/admin/AdminInfo.vue'
 import Test1 from '../views/test/test1.vue'
 import Test2 from '../views/test/test2.vue'
 
@@ -82,7 +83,12 @@ const routes = [
         path: '/chat',
         name: '在线聊天',
         component: FriendChat,
-    },
+      },
+      {
+        path: '/userinfo',
+        name: '个人中心',
+        component: AdminInfo
+      },
       {
         path: '/test1',
         name: 'Test1',

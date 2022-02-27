@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-header class="homeHeader">
-        <div class="title">应急平台管理系统</div>
+        <div class="title mt-7">应急平台管理系统</div>
         <div>
           <el-button
             icon="el-icon-chat-line-square"
@@ -114,6 +114,7 @@ export default {
             });
           });
       } else if (command == "userinfo") {
+        this.$router.push("/userinfo");
       }
     },
   },
