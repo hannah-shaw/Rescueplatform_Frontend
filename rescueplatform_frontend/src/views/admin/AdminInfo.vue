@@ -222,7 +222,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .box-card {
   width: 480px;
 }

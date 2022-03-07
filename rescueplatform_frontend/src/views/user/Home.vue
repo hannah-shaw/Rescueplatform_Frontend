@@ -5,14 +5,12 @@
     </div>
     <div class="container context">
       <div class="box">🔔 {{ billboard.content }}</div>
-      <div class="columns">
         <div class="column ">
           <PostButton></PostButton>
         </div>
-        <div class="column is-three-quarters ">
+        <div class="column ">
           <TopicList></TopicList>
         </div>
-      </div>
     </div>
 
     <div>

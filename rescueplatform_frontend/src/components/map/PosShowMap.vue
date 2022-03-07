@@ -30,7 +30,7 @@ export default {
 };
 </script>
  
-<style>
+<style scoped>
 .Map {
   height: calc(100vh - 126px);
   width: 100%;

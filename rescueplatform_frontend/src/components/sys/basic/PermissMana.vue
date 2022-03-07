@@ -173,7 +173,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .permissMana {
   display: flex;
   justify-content: flex-start;

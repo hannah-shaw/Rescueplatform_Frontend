@@ -202,7 +202,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .admin-card {
   width: 350px;
   margin-bottom: 20px;
