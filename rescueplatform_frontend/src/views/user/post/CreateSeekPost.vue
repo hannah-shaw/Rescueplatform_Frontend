@@ -119,6 +119,8 @@ export default {
           posx:'',
           posy:'',
           address:'',
+          province:'',
+          city:'',
       },
       sendForm:{
           name:'',
@@ -130,6 +132,8 @@ export default {
           posx:'',
           posy:'',
           address:'',
+          province:'',
+          city:'',
       },
       rules: {
           name: [
@@ -172,8 +176,10 @@ export default {
         this.$refs[formName].resetFields();
     },
     //接收子组件位置信息
-    async getaddress(address,location) {
+    async getaddress(address,province,city,location) {
         this.ruleForm.address = address
+        this.ruleForm.province = province
+        this.ruleForm.city = city
         this.ruleForm.posx = location.lng
         this.ruleForm.posy = location.lat
     },

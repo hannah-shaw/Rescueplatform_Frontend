@@ -5,17 +5,23 @@
         <el-tabs v-model="activeName" @tab-click="handleClick">
           <el-tab-pane label="求助信息" name="seek">
             <article
-              v-for="(item, index) in seekArticleList"
+              v-for="(item, index) in seekData"
               :key="index"
               class="media"
             >
               <div class="media-content">
                 <div class="post-main">
                   <p class="level-left mt-2">
-                      <el-link  class="is-size-5" @click="jumpDetail(item.id)"> 情况：{{ item.description }} </el-link>
+                    <el-link class="is-size-6" @click="jumpDetail(item.id)">
+                      情况：{{ item.discription }}
+                    </el-link>
                   </p>
                   <p class="level-left mt-2">
-                    <span class="is-size-6">位置：{{ item.address }}</span>
+                    <span class="is-size-6"
+                      >位置：{{
+                        item.province + item.city + item.district
+                      }}</span
+                    >
                   </p>
                 </div>
                 <nav class="level has-text-grey is-mobile is-size-7 mt-2">
@@ -23,7 +29,7 @@
                     <div class="level-left">
                       <!--时间-->
                       <span class="mr-1">
-                        发布于:{{ dayjs(item.createTime).format("YYYY/MM/DD") }}
+                        发布于:{{ dayjs(item.createtime).format("YYYY/MM/DD") }}
                       </span>
                       <!--核实情况-->
                       <span class="tag is-danger is-light mr-1">
@@ -31,7 +37,7 @@
                       </span>
                       <!--安全情况-->
                       <span class="tag is-success is-light mr-1">
-                        {{ item.saved }}
+                        {{ item.safed }}
                       </span>
                       <!--浏览量-->
                       <span class="is-hidden-mobile"
@@ -45,14 +51,14 @@
           </el-tab-pane>
           <el-tab-pane label="帮助信息" name="offer">
             <article
-              v-for="(item, index) in offerArticleList"
+              v-for="(item, index) in offerData"
               :key="index"
               class="media"
             >
               <div class="media-content">
                 <div class="post-main">
                   <p class="level-left mt-2">
-                    <span class="is-size-6">详情：{{ item.description }}</span>
+                    <span class="is-size-6">情况：{{ item.discription }}</span>
                   </p>
                   <p class="level-left mt-2">
                     <span class="is-size-6">帮助者：{{ item.name }}</span>
@@ -61,7 +67,11 @@
                     <span class="is-size-6">电话：{{ item.phone }}</span>
                   </p>
                   <p class="level-left mt-2">
-                    <span class="is-size-6">位置：{{ item.address }}</span>
+                    <span class="is-size-6"
+                      >位置：{{
+                        item.province + item.city + item.district
+                      }}</span
+                    >
                   </p>
                 </div>
                 <nav class="level has-text-grey is-mobile is-size-7 mt-2">
@@ -69,7 +79,7 @@
                     <div class="level-left">
                       <!--时间-->
                       <span class="mr-1">
-                        发布于:{{ dayjs(item.createTime).format("YYYY/MM/DD") }}
+                        发布于:{{ dayjs(item.createtime).format("YYYY/MM/DD") }}
                       </span>
                       <!--核实情况-->
                       <span class="tag is-danger is-light mr-1">
@@ -89,14 +99,16 @@
         </el-tabs>
       </div>
 
-      <!--分页-->
-      <pagination
-        v-show="page.total > 0"
-        :total="page.total"
-        :page.sync="page.current"
-        :limit.sync="page.size"
-        @pagination="init"
-      />
+      <div style="display: flex; justify-content: flex-end">
+        <el-pagination
+          background
+          @current-change="currentChange"
+          @size-change="sizeChange"
+          layout="sizes, prev, pager, next, jumper, ->, total"
+          :total="total"
+        >
+        </el-pagination>
+      </div>
     </el-card>
   </div>
 </template>
@@ -110,64 +122,8 @@ export default {
   data() {
     return {
       activeName: "seek",
-      seekArticleList: [
-        {
-          id: "0",
-          description: "111",
-          name: "1",
-          phone: "1",
-          address: "1",
-          createTime: "2022-01-28 13:56:01",
-          checked: "1",
-          saved: "1",
-          views: "1",
-        },
-        {
-          id: "1",
-          description: "111",
-          name: "1",
-          phone: "1",
-          address: "1",
-          createTime: "2022-01-28 13:56:01",
-          checked: "1",
-          saved: "1",
-          views: "1",
-        },
-        {
-          id: "2",
-          description: "1",
-          name: "1",
-          phone: "1",
-          address: "1",
-          createTime: "2022-01-28 13:56:01",
-          checked: "1",
-          saved: "1",
-          views: "1",
-        },
-        {
-          id: "3",
-          description: "1",
-          name: "1",
-          phone: "1",
-          address: "1",
-          createTime: "2022-01-28 13:56:01",
-          checked: "1",
-          saved: "1",
-          views: "1",
-        },
-      ],
-      offerArticleList: [
-        {
-          id: "0",
-          description: "1",
-          name: "1",
-          phone: "1",
-          address: "1",
-          createTime: "2022-01-28 13:56:01",
-          checked: "1",
-          views: "1",
-        },
-      ],
+      seekData: [],
+      offerData: [],
       page: {
         current: 1,
         size: 10,
@@ -177,15 +133,68 @@ export default {
     };
   },
   created() {
-    this.init(this.tab);
+    this.init(this.activeName);
   },
   methods: {
-    init(tab) {},
+    init(tab) {
+      if (tab == "seek") {
+        let url =
+          "/front/seekhelp-post/listpage?currentPage=" +
+          this.page.current +
+          "&size=" +
+          this.page.size;
+        this.getRequest(url).then((resp) => {
+          if (resp) {
+            this.seekData = resp.date;
+            console.log(this.seekData);
+            for (var i = 0; i < this.seekData.length; i++) {
+              if (this.seekData[i].checked == false) {
+                this.seekData[i].checked = "未核实";
+              } else {
+                this.seekData[i].checked = "已核实";
+              }
+              if (this.seekData[i].safed == false) {
+                this.seekData[i].safed = "未获救";
+              } else {
+                this.seekData[i].safed = "已获救";
+              }
+            }
+          }
+        });
+      } else if (tab == "offer") {
+        let url =
+          "/front/help-post/listpage?currentPage=" +
+          this.page.current +
+          "&size=" +
+          this.page.size;
+        this.getRequest(url).then((resp) => {
+          if (resp) {
+            this.offerData = resp.date;
+            console.log(this.offerData);
+            for (var i = 0; i < this.offerData.length; i++) {
+              if (this.offerData[i].checked == false) {
+                this.offerData[i].checked = "未核实";
+              } else {
+                this.offerData[i].checked = "已核实";
+              }
+            }
+          }
+        });
+      }
+    },
+    sizeChange(size) {
+      this.page.size = size;
+      this.init(this.activeName);
+    },
+    currentChange(currentPage) {
+      this.page.current = currentPage;
+      this.init(this.activeName);
+    },
     handleClick(tab) {
       this.page.current = 1;
       this.init(tab.name);
     },
-    jumpDetail(id){
+    jumpDetail(id) {
       this.$router.push({ path: "/detail?key=" + id });
     },
     // 字符串截取 包含对中文处理,str需截取字符串,start开始截取位置,n截取长度

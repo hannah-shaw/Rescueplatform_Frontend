@@ -18,6 +18,8 @@ export default {
     return {
       address_detail: null, //详细地址
       address:"" ,
+      province:"",
+      city:"",
       userlocation: { lng: "", lat: "" },
     };
   },
@@ -45,7 +47,11 @@ export default {
             var addComp = rs.addressComponents;
             var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
             th.address = address
-            th.send(th.address,th.userlocation);
+            var city = addComp.city
+            var province = addComp.province
+            th.province = province
+            th.city = city
+            th.send(th.address,th.province,th.city,th.userlocation);
         });
         } else {
           this.$message.error('获取当前位置失败：' + this.getStatus());
@@ -97,8 +103,8 @@ export default {
     });
   },
   methods:{
-      send(ad,lo){
-        this.$emit('addressinfo',ad,lo)
+      send(ad,province,city,lo){
+        this.$emit('addressinfo',ad,province,city,lo)
       }
   }
 };
