@@ -8,7 +8,7 @@
         <div class="column is-full">
           <el-card class="box-card" shadow="never">
             <div slot="header" class="clearfix">
-              <span><i class=" is-size-3"> 提供帮助 </i></span>
+              <span><i class="is-size-3"> 提供帮助 </i></span>
             </div>
             <div>
               <el-form
@@ -31,19 +31,18 @@
                   />
                 </el-form-item>
 
-                <el-form-item label="可提供帮助" prop="description">
+                <el-form-item label="可提供帮助" prop="discription">
                   <el-input
-                    v-model="ruleForm.description"
+                    v-model="ruleForm.discription"
                     placeholder="请简要描述避难所场所情况或是可以提供的帮助，例如饮用水、食物、住宿等"
                     type="textarea"
                   />
                 </el-form-item>
 
                 <p class="md-2 level-left">输入选择当前位置</p>
-                <div class = "smap">
-                    <Map @addressinfo = "getaddress"></Map>
+                <div class="smap">
+                  <Map @addressinfo="getaddress"></Map>
                 </div>
-
 
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')"
@@ -67,54 +66,75 @@
 <script>
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
-import Map from '@/components/map/SearchMap'
+import Map from "@/components/map/SearchMap";
 
 export default {
   name: "TopicPost",
-  components: { Header, Footer,Map},
+  components: { Header, Footer, Map },
   data() {
     var checkPhone = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('电话不能为空'));
+      if (!value) {
+        return callback(new Error("电话不能为空"));
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error("请输入数字值"));
+        } else {
+          callback();
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-              callback();
-          }
-        }, 500);
-      };
+      }, 500);
+    };
     return {
       contentEditor: {},
       ruleForm: {
-          name:'',
-          phone:'',
-          description:'',
-          posx:'',
-          posy:'',
-          address:'',
+        name: "",
+        phone: "",
+        discription: "",
+        posx: "",
+        posy: "",
+        district: "",
+        province: "",
+        city: "",
+        check:false,
+        createtime:"",
+        id:0,
+        view:0,
+
       },
-      sendForm:{
-          name:'',
-          phone:'',
-          description:'',
-          posx:'',
-          posy:'',
-          address:'',
+      sendForm: {
+        name: "",
+        phone: "",
+        discription: "",
+        posx: "",
+        posy: "",
+        district: "",
+        province: "",
+        city: "",
+        check:false,
+        createtime:"",
+        id:0,
+        view:0,
       },
       rules: {
-          name: [
-            { required: true, message: '请输入您的名字', trigger: 'blur' },
-            { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-          ],
-          phone: [
-            { required: true,validator: checkPhone, trigger: 'blur' }
-          ],
-          description: [
-            { required: true, message: '请输入帮助说明', trigger: 'blur' },
-            { min: 1, max: 60, message: '长度在 1 到 60 个字符', trigger: 'blur' }
-          ],
+        name: [
+          { required: true, message: "请输入您的名字", trigger: "blur" },
+          {
+            min: 2,
+            max: 20,
+            message: "长度在 2 到 20 个字符",
+            trigger: "blur",
+          },
+        ],
+        phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
+        discription: [
+          { required: true, message: "请输入帮助说明", trigger: "blur" },
+          {
+            min: 1,
+            max: 60,
+            message: "长度在 1 到 60 个字符",
+            trigger: "blur",
+          },
+        ],
       },
 
       refresh: true,
@@ -126,18 +146,36 @@ export default {
   methods: {
     //提交
     submitForm(formName) {
-        this.sendForm = this.ruleForm;
-        console.log(this.sendForm)
+      this.sendForm = this.ruleForm;
+      this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.postRequest("/front/help-post/add", this.sendForm).then(
+              (resp) => {
+                if (resp) {
+
+                }
+              }
+            );
+          }
+        });
     },
     //重置
     resetForm(formName) {
-        this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields();
     },
     //接收子组件位置信息
-    async getaddress(address,location) {
-        this.ruleForm.address = address
-        this.ruleForm.posx = location.lng
-        this.ruleForm.posy = location.lat
+    async getaddress(address, location) {
+      var th = this;
+      this.ruleForm.district = address;
+      this.ruleForm.posx = location.lng;
+      this.ruleForm.posy = location.lat;
+      var point = new BMap.Point(location.lng, location.lat);
+      var gc = new BMap.Geocoder();
+      gc.getLocation(point, function (rs) {
+        var addComp = rs.addressComponents;
+        th.ruleForm.province = addComp.province;
+        th.ruleForm.city = addComp.city;
+      });
     },
     //解决vue页头懒加载导致组件错位的问题
     refreshComp() {
@@ -154,8 +192,8 @@ export default {
 </script>
 
 <style scoped>
-  .smap{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.smap {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 </style>

@@ -47,11 +47,6 @@ export default {
             var addComp = rs.addressComponents;
             var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
             th.address = address
-            var city = addComp.city
-            var province = addComp.province
-            th.province = province
-            th.city = city
-            th.send(th.address,th.province,th.city,th.userlocation);
         });
         } else {
           this.$message.error('获取当前位置失败：' + this.getStatus());
@@ -103,8 +98,8 @@ export default {
     });
   },
   methods:{
-      send(ad,province,city,lo){
-        this.$emit('addressinfo',ad,province,city,lo)
+      send(ad,lo){
+        this.$emit('addressinfo',ad,lo)
       }
   }
 };

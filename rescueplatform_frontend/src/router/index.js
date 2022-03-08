@@ -68,7 +68,7 @@ const routes = [
   },
   //后台登录
   {
-    path: '/login',
+    path: '/backlogin',
     name: 'Login',
     component: Login,
     hidden: true

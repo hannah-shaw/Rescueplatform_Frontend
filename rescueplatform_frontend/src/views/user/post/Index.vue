@@ -125,9 +125,9 @@ export default {
       seekData: [],
       offerData: [],
       page: {
+        total:0,
         current: 1,
         size: 10,
-        total: 0,
         tab: "seek",
       },
     };

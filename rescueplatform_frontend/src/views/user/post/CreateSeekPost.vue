@@ -8,7 +8,7 @@
         <div class="column is-full">
           <el-card class="box-card" shadow="never">
             <div slot="header" class="clearfix">
-              <span><i class=" is-size-3"> 我要求助 </i></span>
+              <span><i class="is-size-3"> 我要求助 </i></span>
             </div>
             <div>
               <el-form
@@ -31,41 +31,43 @@
                   />
                 </el-form-item>
 
-                <el-form-item label="情况描述" prop="description">
+                <el-form-item label="情况描述" prop="discription">
                   <el-input
-                    v-model="ruleForm.description"
+                    v-model="ruleForm.discription"
                     placeholder="请简要描述现场情况，如处境、需要的物资、是否有人受伤便于救援开展"
                     type="textarea"
                   />
                 </el-form-item>
 
                 <el-form-item label="受灾人数">
-                    <el-select v-model="ruleForm.people" placeholder="您当前位置受灾人数">
+                  <el-select
+                    v-model="ruleForm.people"
+                    placeholder="您当前位置受灾人数"
+                  >
                     <el-option label="10人以下" value="1"></el-option>
                     <el-option label="10人以上50人以下" value="10"></el-option>
                     <el-option label="50人以上" value="50"></el-option>
-                    </el-select>
+                  </el-select>
                 </el-form-item>
 
                 <el-form-item label="是否有老人" prop="old">
-                    <el-radio-group v-model="ruleForm.old">
+                  <el-radio-group v-model="ruleForm.old">
                     <el-radio label="是"></el-radio>
                     <el-radio label="否"></el-radio>
-                    </el-radio-group>
+                  </el-radio-group>
                 </el-form-item>
 
                 <el-form-item label="是否有小孩" prop="child">
-                    <el-radio-group v-model="ruleForm.child">
+                  <el-radio-group v-model="ruleForm.child">
                     <el-radio label="是"></el-radio>
                     <el-radio label="否"></el-radio>
-                    </el-radio-group>
+                  </el-radio-group>
                 </el-form-item>
 
                 <p class="md-2 level-left">输入选择当前位置</p>
-                <div class = "smap">
-                    <Map @addressinfo = "getaddress"></Map>
+                <div class="smap">
+                  <Map @addressinfo="getaddress"></Map>
                 </div>
-
 
                 <el-form-item>
                   <el-button type="primary" @click="submitForm('ruleForm')"
@@ -89,64 +91,82 @@
 <script>
 import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
-import Map from '@/components/map/SearchMap'
+import Map from "@/components/map/SearchMap";
 
 export default {
   name: "TopicPost",
-  components: { Header, Footer,Map},
+  components: { Header, Footer, Map },
   data() {
     var checkPhone = (rule, value, callback) => {
-        if (!value) {
-          return callback(new Error('电话不能为空'));
+      if (!value) {
+        return callback(new Error("电话不能为空"));
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error("请输入数字值"));
+        } else {
+          callback();
         }
-        setTimeout(() => {
-          if (!Number.isInteger(value)) {
-            callback(new Error('请输入数字值'));
-          } else {
-              callback();
-          }
-        }, 500);
-      };
+      }, 500);
+    };
     return {
       contentEditor: {},
       ruleForm: {
-          name:'',
-          phone:'',
-          description:'',
-          people:'',
-          old:'',
-          child:'',
-          posx:'',
-          posy:'',
-          address:'',
-          province:'',
-          city:'',
+        checked: false,
+        child: false,
+        old: false,
+        safed: false,
+        createtime: "",
+        id: 0,
+        name: "",
+        phone: "",
+        discription: "",
+        people: 0,
+        posx: "",
+        posy: "",
+        district: "",
+        province: "",
+        city: "",
+        views: 0,
       },
-      sendForm:{
-          name:'',
-          phone:'',
-          description:'',
-          people:'',
-          old:'',
-          child:'',
-          posx:'',
-          posy:'',
-          address:'',
-          province:'',
-          city:'',
+      sendForm: {
+        checked: false,
+        child: false,
+        old: false,
+        safed: false,
+        createtime: "",
+        id: 0,
+        name: "",
+        phone: "",
+        discription: "",
+        people: 0,
+        posx: "",
+        posy: "",
+        district: "",
+        province: "",
+        city: "",
+        views: 0,
       },
       rules: {
-          name: [
-            { required: true, message: '请输入您的名字', trigger: 'blur' },
-            { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-          ],
-          phone: [
-            { required: true,validator: checkPhone, trigger: 'blur' }
-          ],
-          description: [
-            { required: true, message: '请输入情况描述', trigger: 'blur' },
-            { min: 1, max: 60, message: '长度在 1 到 60 个字符', trigger: 'blur' }
-          ],
+        name: [
+          { required: true, message: "请输入您的名字", trigger: "blur" },
+          {
+            min: 2,
+            max: 20,
+            message: "长度在 2 到 20 个字符",
+            trigger: "blur",
+          },
+        ],
+        phone: [{ required: true, validator: checkPhone, trigger: "blur" }],
+        description: [
+          { required: true, message: "请输入情况描述", trigger: "blur" },
+          {
+            min: 1,
+            max: 60,
+            message: "长度在 1 到 60 个字符",
+            trigger: "blur",
+          },
+        ],
       },
 
       refresh: true,
@@ -158,30 +178,47 @@ export default {
   methods: {
     //提交
     submitForm(formName) {
-        this.sendForm = this.ruleForm;
-        if(this.ruleForm.old == "是"){
-            this.sendForm.old = 1
-        }else{
-            this.sendForm.old = 0
-        }
-        if(this.ruleForm.child == "是"){
-            this.sendForm.child = 1
-        }else{
-            this.sendForm.child = 0
-        }
-        console.log(this.sendForm)
+      this.sendForm = this.ruleForm;
+      if (this.ruleForm.old == "是") {
+        this.sendForm.old = true;
+      } else {
+        this.sendForm.old = false;
+      }
+      if (this.ruleForm.child == "是") {
+        this.sendForm.child = true;
+      } else {
+        this.sendForm.child = false;
+      }
+      console.log(this.sendForm);
+      this.$refs[formName].validate((valid) => {
+          if (valid) {
+            this.postRequest("/front/seekhelp-post/add", this.sendForm).then(
+              (resp) => {
+                if (resp) {
+                  
+                }
+              }
+            );
+          }
+        });
     },
     //重置
     resetForm(formName) {
-        this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields();
     },
     //接收子组件位置信息
-    async getaddress(address,province,city,location) {
-        this.ruleForm.address = address
-        this.ruleForm.province = province
-        this.ruleForm.city = city
-        this.ruleForm.posx = location.lng
-        this.ruleForm.posy = location.lat
+    async getaddress(address, location) {
+      var th = this;
+      this.ruleForm.district = address;
+      this.ruleForm.posx = location.lng;
+      this.ruleForm.posy = location.lat;
+      var point = new BMap.Point(location.lng, location.lat);
+      var gc = new BMap.Geocoder();
+      gc.getLocation(point, function (rs) {
+        var addComp = rs.addressComponents;
+        th.ruleForm.province = addComp.province;
+        th.ruleForm.city = addComp.city;
+      });
     },
     //解决vue页头懒加载导致组件错位的问题
     refreshComp() {
@@ -198,8 +235,8 @@ export default {
 </script>
 
 <style scoped>
-  .smap{
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
+.smap {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 </style>
