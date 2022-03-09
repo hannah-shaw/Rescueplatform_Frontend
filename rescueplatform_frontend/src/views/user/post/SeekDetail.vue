@@ -17,7 +17,7 @@
               </div>
             </div>
             <div>
-              <p class="is-size-6 level-left">描述：{{ topic.description }}</p>
+              <p class="is-size-6 level-left">描述：{{ topic.discription }}</p>
               <p class="is-size-6 level-left">联系人姓名:{{ topic.name }}</p>
               <p class="is-size-6 level-left">联系方式：{{ topic.phone }}</p>
               <p class="mb-5 level-left">

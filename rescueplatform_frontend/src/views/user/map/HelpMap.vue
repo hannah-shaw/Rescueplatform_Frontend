@@ -28,20 +28,13 @@ export default {
  
     data() {
     return {
-      billboard: {
-        content: "",
-      },
       refresh: true,
     };
   },
   created() {
     this.refreshComp();
-    this.fetchBillboard();
   },
   methods: {
-    async fetchBillboard() {
-        
-    },
     //解决vue页头懒加载导致组件错位的问题
     refreshComp() {
       // 移除组件
