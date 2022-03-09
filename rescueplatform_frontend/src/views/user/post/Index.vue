@@ -58,7 +58,9 @@
               <div class="media-content">
                 <div class="post-main">
                   <p class="level-left mt-2">
-                    <span class="is-size-6">情况：{{ item.discription }}</span>
+                    <el-link class="is-size-6" @click="jumpDetail(item.id)">
+                      情况：{{ item.discription }}
+                    </el-link>
                   </p>
                   <p class="level-left mt-2">
                     <span class="is-size-6">帮助者：{{ item.name }}</span>
@@ -125,11 +127,11 @@ export default {
       seekData: [],
       offerData: [],
       page: {
-        total:0,
         current: 1,
         size: 10,
         tab: "seek",
       },
+      total:0,
     };
   },
   created() {
@@ -138,6 +140,9 @@ export default {
   methods: {
     init(tab) {
       if (tab == "seek") {
+        this.getRequest("/front/seekhelp-post/listNum").then((resp) => {
+            this.total = resp/this.page.size + 1
+        });
         let url =
           "/front/seekhelp-post/listpage?currentPage=" +
           this.page.current +
@@ -146,7 +151,6 @@ export default {
         this.getRequest(url).then((resp) => {
           if (resp) {
             this.seekData = resp.date;
-            console.log(this.seekData);
             for (var i = 0; i < this.seekData.length; i++) {
               if (this.seekData[i].checked == false) {
                 this.seekData[i].checked = "未核实";
@@ -162,6 +166,9 @@ export default {
           }
         });
       } else if (tab == "offer") {
+        this.getRequest("/front/help-post/listNum").then((resp) => {
+            this.total = resp/this.page.size + 1
+        });
         let url =
           "/front/help-post/listpage?currentPage=" +
           this.page.current +
@@ -170,7 +177,6 @@ export default {
         this.getRequest(url).then((resp) => {
           if (resp) {
             this.offerData = resp.date;
-            console.log(this.offerData);
             for (var i = 0; i < this.offerData.length; i++) {
               if (this.offerData[i].checked == false) {
                 this.offerData[i].checked = "未核实";
@@ -194,8 +200,13 @@ export default {
       this.page.current = 1;
       this.init(tab.name);
     },
-    jumpDetail(id) {
-      this.$router.push({ path: "/detail?key=" + id });
+    jumpDetail(postid) {
+      if(this.activeName == "seek"){
+        this.$router.push({ path: "/seekdetail", query: { id: postid }});
+      }else if (this.activeName == "offer"){
+        this.$router.push({ path: "/helpdetail", query: { id: postid }});
+      }
+      
     },
     // 字符串截取 包含对中文处理,str需截取字符串,start开始截取位置,n截取长度
     Substr(str, start, n) {

@@ -6,7 +6,8 @@ import SeekHelp from '../views/user/post/CreateSeekPost.vue'
 import OfferHelp from '../views/user/post/CreateHelpPost.vue'
 import SeekMap from '../views/user/map/SeekMap.vue'
 import HelpMap from '../views/user/map/HelpMap.vue'
-import Detail from '../views/user/post/Detail.vue'
+import SeekDetail from '../views/user/post/SeekDetail.vue'
+import HelpDetail from '../views/user/post/HelpDetail.vue'
 
 import BackHome from '../views/admin/Home.vue'
 import Login from '../views/admin/Login.vue'
@@ -60,12 +61,21 @@ const routes = [
   },
   //详情
   {
-    path: '/detail',
-    name: 'Detail',
-    component: Detail,
+    path: '/seekdetail',
+    name: 'SeekDetail',
+    component: SeekDetail,
     meta: { title: "详情" },
     hidden: true
   },
+  //详情
+  {
+    path: '/helpdetail',
+    name: 'HelpDetail',
+    component: HelpDetail,
+    meta: { title: "详情" },
+    hidden: true
+  },
+
   //后台登录
   {
     path: '/backlogin',
