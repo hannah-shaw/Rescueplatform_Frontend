@@ -84,6 +84,22 @@ export default {
         let markers = new BMap.Marker(point);
         map.centerAndZoom(point, 16); // 将point点放入map中，展示在页面中心展示，10=缩放程度
         map.addOverlay(markers); // 将标注添加到地图中
+
+        // 获取当前地理位置，标点,规划路径
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+          if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            var mk = new BMap.Marker(r.point);
+            map.addOverlay(mk);
+            //alert('您当前位置：' + r.point.lng + ',' + r.point.lat);
+            var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+            driving.search(r.point, point);
+            var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+            walking.search(r.point, point);
+          } else {
+            //alert('failed' + this.getStatus());
+          }
+        });
       });
     },
     //解决vue页头懒加载导致组件错位的问题
