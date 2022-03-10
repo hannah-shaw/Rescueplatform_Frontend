@@ -95,10 +95,10 @@ export default {
         district: "",
         province: "",
         city: "",
-        check:false,
+        checked:false,
         createtime:"",
         id:0,
-        view:0,
+        views:0,
 
       },
       sendForm: {
@@ -110,10 +110,10 @@ export default {
         district: "",
         province: "",
         city: "",
-        check:false,
+        checked:false,
         createtime:"",
         id:0,
-        view:0,
+        views:0,
       },
       rules: {
         name: [

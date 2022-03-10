@@ -4,7 +4,7 @@
       <Header></Header>
     </div>
     <div class="container context">
-      <div class="box">🔔 {{ billboard.content }}</div>
+      <div class="box">🔔 {{ billboard.title }}</div>
         <div class="column ">
           <PostButton></PostButton>
         </div>
@@ -32,7 +32,6 @@ export default {
   data() {
     return {
       billboard: {
-        content: "",
       },
       refresh: true,
     };
@@ -43,12 +42,9 @@ export default {
   },
   methods: {
     async fetchBillboard() {
-      /*
-      getBillboard().then((value) => {
-        const { data } = value;
-        this.billboard = data;
-      });
-      */
+      this.getRequest("/front/notice/newNotice").then((resp) => {
+            this.billboard = resp
+        });
     },
     //解决vue页头懒加载导致组件错位的问题
     refreshComp() {

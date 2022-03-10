@@ -8,9 +8,6 @@
           <router-link :to="{path:'/backlogin'}">
             管理员登录
           </router-link>
-          |
-          <a href="/?lang=zh_CN">中文</a> |
-          <a href="/?lang=en_US">English</a>
         </span>
       </div>
 
