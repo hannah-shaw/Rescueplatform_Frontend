@@ -1,5 +1,5 @@
 <template>
-  <div>员工调动</div>
+  <div>志愿队员调动</div>
 </template>
 
 <script>

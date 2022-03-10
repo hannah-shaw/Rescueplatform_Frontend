@@ -1,5 +1,5 @@
 <template>
-  <div>员工培训</div>
+  <div>志愿队员培训</div>
 </template>
 
 <script>

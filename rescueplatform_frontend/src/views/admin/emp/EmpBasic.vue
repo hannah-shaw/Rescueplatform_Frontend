@@ -5,7 +5,7 @@
         <div>
           <el-input
             prefix-icon="el-icon-search"
-            placeholder="请输入员工姓名进行搜索..."
+            placeholder="请输入志愿队员姓名进行搜索..."
             v-model="empName"
             @keydown.enter.native="initEmps"
             clearable
@@ -56,7 +56,7 @@
             type="primary"
             icon="el-buttton-plus"
             @click="showAddEmpView"
-            >添加员工</el-button
+            >添加志愿队员</el-button
           >
         </div>
       </div>
@@ -141,6 +141,7 @@
               </el-option>
             </el-select>
           </el-col>
+          <!--
           <el-col :span="7">
             聘用形式:
             <el-radio-group v-model="searchValue.engageForm">
@@ -148,6 +149,7 @@
               <el-radio label="劳务合同">劳务合同</el-radio>
             </el-radio-group>
           </el-col>
+          -->
         </el-row>
         <el-row style="margin-top: 10px">
           <el-col :span="5">
@@ -289,6 +291,7 @@
         </el-table-column>
         <el-table-column prop="position.name" label="职位" width="100">
         </el-table-column>
+        <!--
         <el-table-column
           prop="engageForm"
           label="聘用形式"
@@ -296,6 +299,7 @@
           width="100"
         >
         </el-table-column>
+        -->
         <el-table-column prop="tiptopDegree" label="最高学历" width="80">
         </el-table-column>
         <el-table-column
@@ -309,14 +313,14 @@
         </el-table-column>
         <el-table-column
           prop="workState"
-          label="在职状态"
+          label="状态"
           align="left"
           width="70"
         >
         </el-table-column>
         <el-table-column
           prop="beginDate"
-          label="入职日期"
+          label="入队日期"
           align="left"
           width="95"
         >
@@ -328,6 +332,7 @@
           width="95"
         >
         </el-table-column>
+        <!--
         <el-table-column
           prop="beginContract"
           label="合同起始日期"
@@ -353,6 +358,7 @@
             >年
           </template>
         </el-table-column>
+        -->
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <el-button
@@ -390,7 +396,7 @@
               <el-form-item label="姓名:" prop="name">
                 <el-input
                   v-model="emp.name"
-                  placeholder="请输入员工姓名"
+                  placeholder="请输入志愿队员姓名"
                   prefix-icon="el-icon-edit"
                   size="mini"
                   style="width: 150px"
@@ -493,11 +499,11 @@
           </el-row>
           <el-row>
             <el-col :span="6">
-              <el-form-item label="职位" prop="posId">
+              <el-form-item label="岗位" prop="posId">
                 <el-select
                   v-model="emp.posId"
                   size="mini"
-                  placeholder="职位"
+                  placeholder="岗位"
                   style="width: 150px"
                 >
                   <el-option
@@ -632,12 +638,12 @@
           </el-row>
           <el-row>
             <el-col :span="6">
-              <el-form-item label="入职日期" prop="beginDate">
+              <el-form-item label="入队日期" prop="beginDate">
                 <el-date-picker
                   v-model="emp.beginDate"
                   size="mini"
                   type="date"
-                  placeholder="入职日期"
+                  placeholder="入队日期"
                   style="width: 150px"
                   value-format="yyyy-MM-dd"
                 >
@@ -657,6 +663,7 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
+            <!--
             <el-col :span="6">
               <el-form-item label="合同起始日期:" prop="beginContract">
                 <el-date-picker
@@ -683,6 +690,7 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
+          -->
           </el-row>
           <el-row>
             <el-col :span="6">
@@ -696,6 +704,7 @@
                 ></el-input>
               </el-form-item>
             </el-col>
+            <!--
             <el-col :span="5">
               <el-form-item label="聘用形式" prop="engageForm">
                 <el-radio-group v-model="emp.engageForm">
@@ -708,6 +717,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
+            -->
             <el-col :span="6">
               <el-form-item label="婚姻状况" prop="wedlock">
                 <el-radio-group v-model="emp.wedlock">
@@ -841,9 +851,9 @@ export default {
       tiptopDegrees: ["博士", "硕士", "本科", "大专", "高中", "初中", "小学"],
       inputDepName: "",
       rules: {
-        name: [{ required: true, message: "请输入员工姓名", trigger: "blur" }],
+        name: [{ required: true, message: "请输入志愿队员姓名", trigger: "blur" }],
         gender: [
-          { required: true, message: "请输入员工性别", trigger: "blur" },
+          { required: true, message: "请输入志愿队员性别", trigger: "blur" },
         ],
         birthday: [
           { required: true, message: "请输入出生日期", trigger: "blur" },
@@ -872,7 +882,7 @@ export default {
         ],
         phone: [{ required: true, message: "请输入电话号码", trigger: "blur" }],
         address: [
-          { required: true, message: "请输入员工地址", trigger: "blur" },
+          { required: true, message: "请输入志愿队员地址", trigger: "blur" },
         ],
         departmentId: [
           { required: true, message: "请选择部门", trigger: "blur" },
@@ -952,14 +962,14 @@ export default {
       this.downloadRequest("/employee/basic/export");
     },
     showEditView(data) {
-      this.title = "编辑员工信息";
+      this.title = "编辑志愿队员信息";
       this.inputDepName = data.department.name;
       this.initPositions();
       this.emp = data;
       this.dialogVisible = true;
     },
     deleteEmp(data) {
-      this.$confirm("此操作将删除[" + data.name + "]员工, 是否继续?", "提示", {
+      this.$confirm("此操作将删除[" + data.name + "]志愿队员, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
@@ -1078,7 +1088,7 @@ export default {
       }
     },
     showAddEmpView() {
-      this.title = "添加员工";
+      this.title = "添加志愿队员";
       this.inputDepName = "";
       this.emp = {
         name: "",

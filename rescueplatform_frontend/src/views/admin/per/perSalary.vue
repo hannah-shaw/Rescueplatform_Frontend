@@ -1,5 +1,5 @@
 <template>
-  <div>员工调薪</div>
+  <div>志愿队员调薪</div>
 </template>
 
 <script>

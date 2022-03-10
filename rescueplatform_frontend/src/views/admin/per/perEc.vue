@@ -1,5 +1,5 @@
 <template>
-  <div>员工奖惩</div>
+  <div>志愿队员奖惩</div>
 </template>
 
 <script>

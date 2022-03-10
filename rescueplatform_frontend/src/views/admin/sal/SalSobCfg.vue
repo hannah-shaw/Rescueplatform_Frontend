@@ -1,6 +1,6 @@
 <template>
   <div>
-    员工帐套
+    志愿队员帐套
   </div>
 </template>
 
