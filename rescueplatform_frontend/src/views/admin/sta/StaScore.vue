@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--顶部功能栏
     <div class="mt-4">
       <div style="display: flex; justify-content: space-between">
         <div>
@@ -8,7 +7,7 @@
             prefix-icon="el-icon-search"
             placeholder="请输入求助姓名进行搜索"
             v-model="empName"
-            @keydown.enter.native="initEmps"
+            @keydown.enter.native="initEmps('advanced')"
             clearable
             @clear="initEmps"
             style="width: 300px"
@@ -17,7 +16,7 @@
             style="margin-left: 10px"
             icon="el-icon-search"
             type="primary"
-            @click="initEmps"
+            @click="initEmps('advanced')"
             >搜索</el-button
           >
           <el-button type="primary" @click="showSearch = !showSearch">
@@ -56,7 +55,69 @@
         </div>
       </div>
     </div>
-    -->
+
+    <!--高级搜索栏-->
+    <transition name="slide-fade">
+      <div
+        v-show="showSearch"
+        style="
+          border: 1px solid #409eff;
+          border-radius: 5px;
+          box-sizing: border-box;
+          padding: 7px;
+          margin: 15px 0px;
+        "
+      >
+        <el-row>
+          <el-col :span="5">
+            省:
+            <el-input
+              placeholder="请输入省"
+              v-model="searchValue.province"
+              clearable
+              style="width: 180px"
+            ></el-input>
+          </el-col>
+          <el-col :span="5">
+            市:
+            <el-input
+              placeholder="请输入市"
+              v-model="searchValue.city"
+              clearable
+              style="width: 180px"
+            ></el-input>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top: 10px">
+          <el-col :span="6">
+            是否核实:
+            <el-radio-group v-model="searchValue.checked">
+              <el-radio :label = true>核实</el-radio>
+              <el-radio :label = false>未核实</el-radio>
+            </el-radio-group>
+          </el-col>
+          <el-col :span="6">
+            是否获救:
+            <el-radio-group v-model="searchValue.safed">
+              <el-radio :label = true>获救</el-radio>
+              <el-radio :label = false>未获救</el-radio>
+            </el-radio-group>
+          </el-col>
+        </el-row>
+        <el-row style="margin-top: 10px">
+          <el-col :span="5" :offset="4">
+            <el-button
+              size="mini"
+              icon="el-icon-search"
+              type="primary"
+              @click="initEmps('advanced')"
+              >搜索</el-button
+            >
+            <el-button size="mini">取消</el-button>
+          </el-col>
+        </el-row>
+      </div>
+    </transition>
 
     <!--表格-->
     <div style="margin-top: 20px">
@@ -85,10 +146,10 @@
           width="280"
         >
         </el-table-column>
-          <el-table-column prop="safed" label="安全" align="left" width="70">
-          </el-table-column>
-          <el-table-column prop="checked" label="核实" align="left" width="70">
-          </el-table-column>
+        <el-table-column prop="safed" label="安全" align="left" width="70">
+        </el-table-column>
+        <el-table-column prop="checked" label="核实" align="left" width="70">
+        </el-table-column>
         <el-table-column prop="phone" label="电话" width="120">
         </el-table-column>
         <el-table-column prop="posx" label="经度" width="100">
@@ -103,13 +164,13 @@
         </el-table-column>
         <el-table-column label="操作" width="250">
           <template slot-scope="scope">
-            <el-button @click=" " style="padding: 3px" size="mini"
+            <el-button @click="" style="padding: 3px" size="mini"
               >已核实</el-button
             >
-            <el-button @click=" " style="padding: 3px" size="mini"
+            <el-button @click="" style="padding: 3px" size="mini"
               >已安全</el-button
             >
-            <el-button style="padding: 3px" size="mini" type="danger" @click=" "
+            <el-button style="padding: 3px" size="mini" type="danger" @click=""
               >删除</el-button
             >
           </template>
@@ -126,68 +187,6 @@
         </el-pagination>
       </div>
     </div>
-
-    <!--高级搜索栏-
-    <transition name="slide-fade">
-      <div
-        v-show="showSearch"
-        style="
-          border: 1px solid #409eff;
-          border-radius: 5px;
-          box-sizing: border-box;
-          padding: 7px;
-          margin: 15px 0px;
-        "
-      >
-        <el-row>
-          <el-col :span="5">
-            省:
-            <el-input
-            placeholder="请输入省"
-            v-model="searchValue.province"
-            clearable
-            style="width: 100px"
-          ></el-input>
-          </el-col>
-          <el-col :span="4">
-            市:
-            <el-input
-            placeholder="请输入市"
-            v-model="searchValue.city"
-            clearable
-            style="width: 100px"
-          ></el-input>
-          </el-col>
-          <el-col :span="6">
-            是否核实:
-            <el-radio-group v-model="searchValue.checked">
-              <el-radio label="核实">核实</el-radio>
-              <el-radio label="未核实">未核实</el-radio>
-            </el-radio-group>
-          </el-col>
-          <el-col :span="6">
-            是否获救:
-            <el-radio-group v-model="searchValue.safed">
-              <el-radio label="获救">获救</el-radio>
-              <el-radio label="未获救">未获救</el-radio>
-            </el-radio-group>
-          </el-col>
-        </el-row>
-        <el-row style="margin-top: 10px">
-          <el-col :span="5" :offset="4">
-            <el-button
-              size="mini"
-              icon="el-icon-search"
-              type="primary"
-              @click="initEmps('advanced')"
-              >搜索</el-button
-            >
-            <el-button size="mini">取消</el-button>
-          </el-col>
-        </el-row>
-      </div>
-    </transition>
-    -->
   </div>
 </template>
 
@@ -197,10 +196,10 @@ export default {
   data() {
     return {
       searchValue: {
-        province:"",
-        city:"",
-        safed:null,
-        checked:null,
+        province: "",
+        city: "",
+        safed: null,
+        checked: null,
       },
       showSearch: false,
       //用于上传下载
@@ -223,8 +222,7 @@ export default {
       size: 10,
       //搜索名字值
       empName: "",
-      emp: {
-      },
+      emp: {},
       visible: false,
       visible2: false,
     };
@@ -242,6 +240,26 @@ export default {
       this.currentPage = currentPage;
       this.initEmps();
     },
+    onSuccess() {
+      this.importDataBtnText = "导入数据";
+      this.importDataDisabled = false;
+      this.importDataBtnIcon = "el-icon-upload2";
+      console.log("导入数据成功!");
+      this.initEmps();
+    },
+    onError() {
+      this.importDataBtnText = "导入数据";
+      this.importDataDisabled = false;
+      this.importDataBtnIcon = "el-icon-upload2";
+    },
+    beforeUpload() {
+      this.importDataBtnText = "正在导入";
+      this.importDataDisabled = true;
+      this.importDataBtnIcon = "el-icon-loading";
+    },
+    exportData() {
+      this.downloadRequest("/employee/basic/export");
+    },
     //
     initEmps(type) {
       this.loading = true;
@@ -252,40 +270,54 @@ export default {
         this.size;
       //高级搜索
       if (type && type == "advanced") {
-        
+        if (this.searchValue.province) {
+          url += "&province=" + this.searchValue.province;
+        }
+        if (this.searchValue.city) {
+          url += "&city=" + this.searchValue.city;
+        }
+        if (this.searchValue.safed) {
+          url += "&safed=" + this.searchValue.safed;
+        }
+        if (this.searchValue.checked) {
+          url += "&checked=" + this.searchValue.checked;
+        }
+        if (this.empName) {
+          url += "&name=" + this.empName;
+        }
+        console.log(url)
       }
       this.getRequest(url).then((resp) => {
         this.loading = false;
         if (resp) {
           this.seekpost = resp.date;
           this.total = resp.total;
-          for(var i=0;i<this.seekpost.length;i++){
-            if(this.seekpost[i].safed == true){
-            this.seekpost[i].safed = "已获救"
-          }else{
-            this.seekpost[i].safed = "未获救"
+          for (var i = 0; i < this.seekpost.length; i++) {
+            if (this.seekpost[i].safed == true) {
+              this.seekpost[i].safed = "已获救";
+            } else {
+              this.seekpost[i].safed = "未获救";
+            }
+            if (this.seekpost[i].checked == true) {
+              this.seekpost[i].checked = "已核实";
+            } else {
+              this.seekpost[i].checked = "未核实";
+            }
+            if (this.seekpost[i].child == true) {
+              this.seekpost[i].child = "有";
+            } else {
+              this.seekpost[i].child = "无";
+            }
+            if (this.seekpost[i].oldo == true) {
+              this.seekpost[i].old = "有";
+            } else {
+              this.seekpost[i].old = "无";
+            }
           }
-          if(this.seekpost[i].checked == true){
-            this.seekpost[i].checked = "已核实"
-          }else{
-            this.seekpost[i].checked = "未核实"
-          }
-          if(this.seekpost[i].child == true){
-            this.seekpost[i].child = "有"
-          }else{
-            this.seekpost[i].child = "无"
-          }
-          if(this.seekpost[i].oldo == true){
-            this.seekpost[i].old = "有"
-          }else{
-            this.seekpost[i].old = "无"
-          }
-          }
-          
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
