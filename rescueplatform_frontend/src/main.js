@@ -17,6 +17,9 @@ import { deleteRequest } from "./utils/api";
 import { initMenu } from './utils/menus';
 //font-awesome
 import 'font-awesome/css/font-awesome.css'
+//echarts
+import echarts from "echarts";   
+
 
 //文件下载
 import { downloadRequest } from './utils/download'

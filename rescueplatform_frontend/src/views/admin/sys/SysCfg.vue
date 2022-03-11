@@ -1,5 +1,5 @@
 <template>
-  <div>基础信息</div>
+  <div>通知管理</div>
 </template>
 
 <script>
