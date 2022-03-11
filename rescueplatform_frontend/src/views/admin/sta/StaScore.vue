@@ -92,15 +92,15 @@
           <el-col :span="6">
             是否核实:
             <el-radio-group v-model="searchValue.checked">
-              <el-radio :label = true>核实</el-radio>
-              <el-radio :label = false>未核实</el-radio>
+              <el-radio label=true>核实</el-radio>
+              <el-radio label=false>未核实</el-radio>
             </el-radio-group>
           </el-col>
           <el-col :span="6">
             是否获救:
             <el-radio-group v-model="searchValue.safed">
-              <el-radio :label = true>获救</el-radio>
-              <el-radio :label = false>未获救</el-radio>
+              <el-radio :label="true">获救</el-radio>
+              <el-radio :label="false">未获救</el-radio>
             </el-radio-group>
           </el-col>
         </el-row>
@@ -162,15 +162,26 @@
         </el-table-column>
         <el-table-column prop="old" label="有老人" width="80">
         </el-table-column>
+        <el-table-column prop="views" label="浏览量" width="80">
+        </el-table-column>
+        <el-table-column prop="createtime" label="发布时间" width="150">
+        </el-table-column>
         <el-table-column label="操作" width="250">
           <template slot-scope="scope">
-            <el-button @click="" style="padding: 3px" size="mini"
-              >已核实</el-button
+            <el-button
+              @click="check(scope.row)"
+              style="padding: 3px"
+              size="mini"
+              >核实</el-button
             >
-            <el-button @click="" style="padding: 3px" size="mini"
-              >已安全</el-button
+            <el-button @click="safe(scope.row)" style="padding: 3px" size="mini"
+              >安全</el-button
             >
-            <el-button style="padding: 3px" size="mini" type="danger" @click=""
+            <el-button
+              style="padding: 3px"
+              size="mini"
+              type="danger"
+              @click="deleteSeek(scope.row)"
               >删除</el-button
             >
           </template>
@@ -231,6 +242,65 @@ export default {
     this.initEmps();
   },
   methods: {
+    check(data) {
+      this.getRequest("/front/seekhelp-post/postById?id=" + data.id).then(
+        (resp) => {
+          if (resp.checked == false) {
+            this.putRequest("/front/seekhelp-post/check?id=" + data.id).then(
+              (resp) => {}
+            );
+          } else {
+            this.putRequest("/front/seekhelp-post/unCheck?id=" + data.id).then(
+              (resp) => {}
+            );
+          }
+          this.initEmps();
+        }
+      );
+    },
+    safe(data) {
+      this.getRequest("/front/seekhelp-post/postById?id=" + data.id).then(
+        (resp) => {
+          if (resp.safed == false) {
+            this.putRequest("/front/seekhelp-post/safe?id=" + data.id).then(
+              (resp) => {}
+            );
+          } else {
+            this.putRequest("/front/seekhelp-post/unSafe?id=" + data.id).then(
+              (resp) => {}
+            );
+          }
+          this.initEmps();
+        }
+      );
+    },
+    //删除
+    deleteSeek(data) {
+      this.$confirm(
+        "此操作将删除[" + data.name + "]的求助记录, 是否继续?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          this.deleteRequest("/front/seekhelp-post/delete?id=" + data.id).then(
+            (resp) => {
+              if (resp) {
+                this.initEmps();
+              }
+            }
+          );
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除",
+          });
+        });
+    },
     //分页函数
     sizeChange(size) {
       this.size = size;
@@ -240,6 +310,7 @@ export default {
       this.currentPage = currentPage;
       this.initEmps();
     },
+    //数据导入导出
     onSuccess() {
       this.importDataBtnText = "导入数据";
       this.importDataDisabled = false;
@@ -260,7 +331,7 @@ export default {
     exportData() {
       this.downloadRequest("/employee/basic/export");
     },
-    //
+    //从后台初始化数据
     initEmps(type) {
       this.loading = true;
       let url =
@@ -285,7 +356,7 @@ export default {
         if (this.empName) {
           url += "&name=" + this.empName;
         }
-        console.log(url)
+        console.log(url);
       }
       this.getRequest(url).then((resp) => {
         this.loading = false;
