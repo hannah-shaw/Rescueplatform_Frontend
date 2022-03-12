@@ -12,7 +12,7 @@
       <el-select
         size="small"
         v-model="jl.titleLevel"
-        placeholder="职称等级"
+        placeholder="职位等级"
         style="margin-left: 10px; margin-right: 10px"
       >
         <el-option
@@ -49,7 +49,7 @@
       >
         <el-table-column type="selection" width="55"> </el-table-column>
         <el-table-column prop="id" label="编号" width="180"> </el-table-column>
-        <el-table-column prop="name" label="职称名" width="180">
+        <el-table-column prop="name" label="职位名" width="180">
         </el-table-column>
         <el-table-column prop="titleLevel" label="职称等级" width="150">
         </el-table-column>
@@ -76,7 +76,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog title="编辑职称" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="编辑职位" :visible.sync="dialogVisible" width="30%">
       <table>
         <tr>
           <td><el-tag>职位名称</el-tag></td>
@@ -94,7 +94,7 @@
             <el-select
               size="small"
               v-model="updateJl.titleLevel"
-              placeholder="职称等级"
+              placeholder="职位等级"
               style="margin-left: 10px; margin-right: 10px"
             >
               <el-option

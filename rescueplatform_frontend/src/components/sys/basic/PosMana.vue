@@ -3,7 +3,7 @@
     <div>
       <el-input
         size="small"
-        placeholder="添加职位"
+        placeholder="添加救援队员技能点"
         prefix-icon="el-icon-plus"
         v-model="pos.name"
         class="addPosInput"
@@ -62,9 +62,9 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog title="编辑职位" :visible.sync="dialogVisible" width="30%">
+    <el-dialog title="编辑技能点" :visible.sync="dialogVisible" width="30%">
       <div>
-        <el-tag>职位名称</el-tag>
+        <el-tag>技能点名称</el-tag>
         <el-input
           v-model="updatePos.name"
           size="small"
@@ -104,7 +104,7 @@ export default {
   methods: {
     deleteMany() {
       this.$confirm(
-        "删除[" + this.multipleSelection.length + "]个职位, 是否继续?",
+        "删除[" + this.multipleSelection.length + "]个技能点, 是否继续?",
         "提示",
         {
           confirmButtonText: "确定",
@@ -156,7 +156,7 @@ export default {
           }
         );
       } else {
-        this.$message.error("职位名称不能为空!");
+        this.$message.error("技能点名称不能为空!");
       }
     },
     handleEdit(index, data) {
@@ -164,7 +164,7 @@ export default {
       this.dialogVisible = true;
     },
     handleDelete(index, data) {
-      this.$confirm("删除[" + data.name + "]职位, 是否继续?", "提示", {
+      this.$confirm("删除[" + data.name + "]这个技能点, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

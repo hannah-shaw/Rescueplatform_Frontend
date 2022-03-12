@@ -13,7 +13,7 @@
         <!--   :class="[item.id === currentSession ? 'active':'']" -->
         <img class="avatar" :src="item.userFace" :alt="item.username" />
         <el-badge :is-dot="isDot[user.username + '#' + item.username]">
-          <p class="name">{{ item.username }}</p>
+          <p class="name">{{ item.name }}</p>
         </el-badge>
       </li>
     </ul>
