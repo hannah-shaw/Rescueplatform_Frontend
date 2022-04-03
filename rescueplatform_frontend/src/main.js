@@ -18,7 +18,8 @@ import { initMenu } from './utils/menus';
 //font-awesome
 import 'font-awesome/css/font-awesome.css'
 //echarts
-import echarts from "echarts";   
+import echarts from 'echarts';   
+Vue.prototype.$echarts = echarts  //echarts定义为全局变量
 
 
 //文件下载

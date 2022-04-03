@@ -1,42 +1,45 @@
 <template>
-  <div>
-    <div class="block">
-    <span class="demonstration">浏览量</span>
-    <el-slider v-model="views"></el-slider>
-  </div>
-  <div class="block">
-    <span class="demonstration">人数</span>
-    <el-slider v-model="people"></el-slider>
-  </div>
-  <div class="block">
-    <span class="demonstration">受灾人群含有老人</span>
-    <el-slider v-model="old"></el-slider>
-  </div>
-  <div class="block">
-    <span class="demonstration">受灾人群含有小孩</span>
-    <el-slider v-model="child"></el-slider>
-  </div>
+  <div class="mt-5">
+    <el-row :gutter="30">
+      <el-col :span="12">
+        <div class="chart-wrapper">
+          <single-map />
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="chart-wrapper">
+          <single-pie />
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
+import Map from "@/components/admin/echarts/Map";
+import Pie from "@/components/admin/echarts/HelpPie";
 export default {
-  name: "SysLog",
   data() {
-      return {
-        views: 25,
-        people: 25,
-        old: 25,
-        child: 25,
-      }
-    },
-    methods: {
-      formatTooltip(val) {
-        return val / 100;
-      }
-    }
+    return {};
+  },
+  methods: {},
+  components: {
+    "single-map": Map,
+    "single-pie": Pie,
+  },
 };
 </script>
 
-<style>
+<style scoped>
+.china-map {
+  width: 45%;
+}
+.china-pie {
+  width: 45%;
+}
+.chart-wrapper {
+  background: #fff;
+  padding: 6px 6px 0;
+  margin-bottom: 32px;
+}
 </style>

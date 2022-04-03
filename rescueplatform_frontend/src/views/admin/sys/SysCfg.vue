@@ -36,7 +36,7 @@
             <el-button
               style="padding: 3px"
               type="danger"
-              @click="delete(scope.row)"
+              @click="deleteNotice(scope.row)"
               >删除</el-button
             >
           </template>
@@ -150,7 +150,7 @@ export default {
         });
     },
     //删除
-    delete(data) {
+    deleteNotice(data) {
       this.$confirm(
         "此操作将删除这条通知, 是否继续?",
         "提示",
