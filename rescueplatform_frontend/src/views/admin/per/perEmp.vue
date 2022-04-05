@@ -13,14 +13,21 @@
       </el-col>
     </el-row>
     <el-row :gutter="30">
+      <el-col :span="24">
+        <div class="chart-wrapper">
+          <politics-pie />
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="30">
       <el-col :span="12">
         <div class="chart-wrapper">
-          <single-hpie />
+          <nation-pie />
         </div>
       </el-col>
       <el-col :span="12">
         <div class="chart-wrapper">
-          <single-shpie />
+          <sex-pie />
         </div>
       </el-col>
     </el-row>
@@ -30,8 +37,9 @@
 <script>
 import Map from "@/components/admin/echarts/Map";
 import InfCard from "@/components/admin/echarts/InfCard";
-import hPie from "@/components/admin/echarts/HelpPie";
-import shPie from "@/components/admin/echarts/SeekHelpPie";
+import politics from "@/components/admin/echarts/Politics";
+import nation from "@/components/admin/echarts/Position";
+import sex from "@/components/admin/echarts/Sex";
 export default {
   data() {
     return {};
@@ -39,9 +47,10 @@ export default {
   methods: {},
   components: {
     "single-map": Map,
-    "single-hpie": hPie,
-    "single-shpie": shPie,
+    "politics-pie": politics,
     "inf-card":InfCard,
+    "nation-pie":nation,
+    "sex-pie":sex,
   },
 };
 </script>

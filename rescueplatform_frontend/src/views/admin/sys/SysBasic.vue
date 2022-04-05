@@ -1,12 +1,11 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" type="card">
+    <el-tabs v-model="activeName" type="card" class="mt-5">
       <el-tab-pane label="部门管理" name="DepMana"><DepMana /></el-tab-pane>
       <el-tab-pane label="队员技能点管理" name="PosMana"><PosMana /></el-tab-pane>
       <el-tab-pane label="职位管理" name="JoblebelMana"
         ><JoblebelMana
       /></el-tab-pane>
-      <el-tab-pane label="奖惩规则" name="EcMana"><EcMana /></el-tab-pane>
       <el-tab-pane label="权限管理" name="PermissMana"
         ><PermissMana
       /></el-tab-pane>

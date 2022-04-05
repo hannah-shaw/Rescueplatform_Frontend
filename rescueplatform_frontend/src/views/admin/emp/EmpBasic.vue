@@ -277,7 +277,7 @@
         </el-table-column>
         <el-table-column
           prop="joblevel.name"
-          label="职称"
+          label="职位"
           align="left"
           width="100"
         >
@@ -289,7 +289,7 @@
           width="100"
         >
         </el-table-column>
-        <el-table-column prop="position.name" label="职位" width="100">
+        <el-table-column prop="position.name" label="技能点" width="100">
         </el-table-column>
         <!--
         <el-table-column
