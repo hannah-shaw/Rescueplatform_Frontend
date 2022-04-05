@@ -116,7 +116,6 @@ export default {
       });
     },
     initChart(alData) {
-      console.log(alData);
       this.chartInstance.setOption({
         series: [
           {
