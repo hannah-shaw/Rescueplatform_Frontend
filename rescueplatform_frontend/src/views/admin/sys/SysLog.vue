@@ -1,14 +1,26 @@
 <template>
   <div class="mt-5">
     <el-row :gutter="30">
-      <el-col :span="12">
+      <el-col :span="16">
         <div class="chart-wrapper">
           <single-map />
         </div>
       </el-col>
+      <el-col :span="8">
+        <div class="chart-wrapper">
+          <inf-card/>
+        </div>
+      </el-col>
+    </el-row>
+    <el-row :gutter="30">
       <el-col :span="12">
         <div class="chart-wrapper">
-          <single-pie />
+          <single-hpie />
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="chart-wrapper">
+          <single-shpie />
         </div>
       </el-col>
     </el-row>
@@ -17,7 +29,9 @@
 
 <script>
 import Map from "@/components/admin/echarts/Map";
-import Pie from "@/components/admin/echarts/HelpPie";
+import InfCard from "@/components/admin/echarts/InfCard";
+import hPie from "@/components/admin/echarts/HelpPie";
+import shPie from "@/components/admin/echarts/SeekHelpPie";
 export default {
   data() {
     return {};
@@ -25,7 +39,9 @@ export default {
   methods: {},
   components: {
     "single-map": Map,
-    "single-pie": Pie,
+    "single-hpie": hPie,
+    "single-shpie": shPie,
+    "inf-card":InfCard,
   },
 };
 </script>

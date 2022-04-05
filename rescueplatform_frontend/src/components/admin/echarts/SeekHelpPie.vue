@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="com-container">
-      <div id="echartsH" class="com-pie"></div>
+      <div id="echartsSH" class="com-pie"></div>
     </div>
   </div>
 </template>
@@ -42,10 +42,10 @@ export default {
   methods: {
     drawPie() {
       //加载地图数据
-      this.chartInstance = echarts.init(document.getElementById("echartsH"));
+      this.chartInstance = echarts.init(document.getElementById("echartsSH"));
       var initOption = {
         title: {
-          text: "用户发布 志愿/物资 信息统计",
+          text: "用户发布求助信息统计",
           left: "center",
         },
         tooltip: {
@@ -61,16 +61,16 @@ export default {
     async initData() {
       this.drawPie();
       //加载地图数据
-      this.chartInstance = echarts.init(document.getElementById("echartsH"));
+      this.chartInstance = echarts.init(document.getElementById("echartsSH"));
       var getData = [];
       var that = this;
       that
-        .getRequest("/front/help-post/provinceData", {
+        .getRequest("/front/seekhelp-post/provinceData", {
           //参数
         })
         .then((res) => {
-          //console.log(res);
           that.isProvince = true;
+          //console.log(res);
           //获取到的数据需要转换成Json字符串,这里我也不是很明白，在控制台调试的时候，获取到的数据都是[object,Object]这样的格式，所以我只能转换一下
           let outdata = JSON.stringify(res);
           //这里还需eval来处理一下字符串转为json对象，如此就能获取到数据了
@@ -90,7 +90,7 @@ export default {
       this.chartInstance.on("click", function (param) {
         if (that.isProvince == true) {
           that
-            .getRequest("/front/help-post/cityData/" + param.data.name)
+            .getRequest("/front/seekhelp-post/cityData/" + param.data.name)
             .then((res) => {
               if (res != null) {
                 that.isProvince = false;
