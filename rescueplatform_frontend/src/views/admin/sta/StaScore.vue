@@ -30,25 +30,6 @@
           </el-button>
         </div>
         <div>
-          <el-upload
-            style="display: inline-flex; margin-right: 8px"
-            :show-file-list="false"
-            :before-upload="beforeUpload"
-            :on-success="onSuccess"
-            :headers="headers"
-            :on-error="onError"
-            :disabled="importDataDisabled"
-            action="/employee/basic/import"
-          >
-            <el-button
-              type="success"
-              :disabled="importDataDisabled"
-              :icon="importDataBtnIcon"
-            >
-              {{ importDataBtnText }}</el-button
-            >
-          </el-upload>
-
           <el-button type="success" @click="exportData" icon="el-icon-download">
             导出数据
           </el-button>
@@ -329,7 +310,7 @@ export default {
       this.importDataBtnIcon = "el-icon-loading";
     },
     exportData() {
-      this.downloadRequest("/employee/basic/export");
+      this.downloadRequest("/front/seekhelp-post/export");
     },
     //从后台初始化数据
     initEmps(type) {
