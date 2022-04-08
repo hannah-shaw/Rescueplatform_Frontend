@@ -46,7 +46,7 @@ export default {
       var initOption = {
         title: {
           text: "志愿者 技能点统计",
-          left: "center",
+          left: "left",
         },
         tooltip: {
           trigger: "item",
@@ -76,33 +76,38 @@ export default {
           //这里还需eval来处理一下字符串转为json对象，如此就能获取到数据了
           let xqo = eval("(" + outdata + ")");
           var getData = [];
-          //根据返回的数据，循环遍历出你要展示的数据
+          var maxData = [];
+          var values = [];
+          var all = 0;
           for (var i in xqo) {
+            values.push(parseInt(xqo[i].num));
+            all+=parseInt(xqo[i].num);
+          }
+          //根据返回的数据，循环遍历出你要展示的数据
             getData.push({
-              value: parseInt(xqo[i].num),
+              value: values,
+            });
+          for (var i in xqo) {
+            maxData.push({
+              max: all/2,
               name: xqo[i].position,
             });
           }
-          that.allData = getData;
-          that.initChart(getData);
+          that.initChart(getData, maxData);
         });
-
     },
-    initChart(alData) {
+    initChart(alData, maxData) {
+      console.log(alData)
       this.chartInstance.setOption({
+        radar: {
+          //shape: 'circle',
+          indicator: maxData,
+        },
         series: [
           {
             name: "发布数量",
-            type: "pie",
-            radius: "50%",
+            type: "radar",
             data: alData,
-            emphasis: {
-              itemStyle: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)",
-              },
-            },
           },
         ],
       });
