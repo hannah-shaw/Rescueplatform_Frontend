@@ -17,9 +17,9 @@ export default {
   data() {
     return {
       address_detail: null, //详细地址
-      address:"" ,
-      province:"",
-      city:"",
+      address: "",
+      province: "",
+      city: "",
       userlocation: { lng: "", lat: "" },
     };
   },
@@ -33,7 +33,7 @@ export default {
       map.centerAndZoom(point, 15);
       //map.enableScrollWheelZoom();
 
-      // 获取当前地理位置
+      // 用户如果不搜索另外的地理位置，则选取获取当前地理位置
       var geolocation = new BMap.Geolocation();
       geolocation.getCurrentPosition(function (r) {
         if (this.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -43,16 +43,22 @@ export default {
           th.userlocation.lng = r.point.lng;
           th.userlocation.lat = r.point.lat;
           var gc = new BMap.Geocoder();
-          gc.getLocation(r.point, function(rs){
+          gc.getLocation(r.point, function (rs) {
             var addComp = rs.addressComponents;
-            var address =  addComp.province +  addComp.city + addComp.district + addComp.street + addComp.streetNumber;//获取地址
-            th.address = address
-        });
+            var address =
+              addComp.province +
+              addComp.city +
+              addComp.district +
+              addComp.street +
+              addComp.streetNumber; //获取地址
+            th.address = address;
+          });
         } else {
-          this.$message.error('获取当前位置失败：' + this.getStatus());
+          this.$message.error("获取当前位置失败：" + this.getStatus());
         }
       });
 
+      //地理位置搜索
       var ac = new BMap.Autocomplete({
         //建立一个自动完成的对象
         input: "suggestId",
@@ -68,17 +74,17 @@ export default {
           _value.district +
           _value.street +
           _value.business;
-        th.address = myValue
+        th.address = myValue;
         setPlace(th.address);
       });
-
+      //地图标点
       function setPlace(address) {
         map.clearOverlays(); //清除地图上所有覆盖物
         function myFun() {
           th.userlocation = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
           map.centerAndZoom(th.userlocation, 18);
           map.addOverlay(new BMap.Marker(th.userlocation)); //添加标注
-          th.send(th.address,th.userlocation);
+          th.send(th.address, th.userlocation);//将地图组件的数据发送给父组件
         }
 
         var local = new BMap.LocalSearch(map, {
@@ -86,22 +92,25 @@ export default {
           onSearchComplete: myFun,
         });
         local.search(myValue);
-
         //测试输出坐标（指的是输入框最后确定地点的经纬度）
         map.addEventListener("click", function (e) {
           console.log(
-            "位置:" + address +
-            "\n经度:" + th.userlocation.lng + "\n纬度:" + th.userlocation.lat
+            "位置:" +
+              address +
+              "\n经度:" +
+              th.userlocation.lng +
+              "\n纬度:" +
+              th.userlocation.lat
           );
         });
       }
     });
   },
-  methods:{
-      send(ad,lo){
-        this.$emit('addressinfo',ad,lo)
-      }
-  }
+  methods: {
+    send(ad, lo) {
+      this.$emit("addressinfo", ad, lo);
+    },
+  },
 };
 </script>
 <style scoped>

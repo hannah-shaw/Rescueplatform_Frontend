@@ -16,11 +16,9 @@ const store = new Vuex.Store({
         sessions: {},
         admins: [],
         currentSession: null,
-        //当前用户
         currentAdmin: JSON.parse(window.sessionStorage.getItem('user')),
         filterKey: '',
         stomp: null,
-        //新消息小红点提示
         isDot: {}
     },
     //  改变state里对应值的方法
@@ -34,14 +32,12 @@ const store = new Vuex.Store({
         },
         addMessage(state, msg) {
             let mss = state.sessions[state.currentAdmin.username + "#" + msg.to];
-            //不存在设置为空
             if (!mss) {
                 Vue.set(state.sessions, state.currentAdmin.username + '#' + msg.to, []);
             }
             state.sessions[state.currentAdmin.username + "#" + msg.to].push({
                 content: msg.content,
                 date: new Date(),
-                //确保不是发给自己
                 self: !msg.notSelf
             })
         },
@@ -70,17 +66,14 @@ const store = new Vuex.Store({
             context.state.stomp.connect({ 'Auth-Token': token }, success => {
                 context.state.stomp.subscribe('/user/queue/chat', msg => {
                     let receiveMsg = JSON.parse(msg.body);
-                    //判定是否是当前聊天的用户发消息从而判定是否提示
                     if (context.state.currentSession || receiveMsg.from != context.state.currentAdmin.username) {
                         Notification.info({
                             title: '[' + receiveMsg.formNickName + ']发来一条消息',
                             message: receiveMsg.content.length > 10 ? receiveMsg.content.substr(0, 10) : receiveMsg.content,
                             position: 'bottom-right'
                         });
-                        //vue监控到值的变化
                         Vue.set(context.state.isDot, context.state.currentAdmin.username + '#' + receiveMsg.from, true);
                     };
-                    //接受
                     receiveMsg.notSelf = true;
                     receiveMsg.to = receiveMsg.from;
                     context.commit('addMessage', receiveMsg);

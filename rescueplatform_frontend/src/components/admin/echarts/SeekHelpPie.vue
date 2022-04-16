@@ -41,7 +41,6 @@ export default {
   },
   methods: {
     drawPie() {
-      //加载地图数据
       this.chartInstance = echarts.init(document.getElementById("echartsSH"));
       var initOption = {
         title: {
@@ -70,13 +69,12 @@ export default {
         })
         .then((res) => {
           that.isProvince = true;
-          //console.log(res);
-          //获取到的数据需要转换成Json字符串,这里我也不是很明白，在控制台调试的时候，获取到的数据都是[object,Object]这样的格式，所以我只能转换一下
+          //获取到的数据需要转换成Json字符串
           let outdata = JSON.stringify(res);
-          //这里还需eval来处理一下字符串转为json对象，如此就能获取到数据了
+          //eval处理一下字符串转为json对象，获取到数据
           let xqo = eval("(" + outdata + ")");
           var getData = [];
-          //根据返回的数据，循环遍历出你要展示的数据
+          //根据返回的数据，循环遍历出要展示的数据
           for (var i in xqo) {
             getData.push({
               value: parseInt(xqo[i].num),
@@ -94,12 +92,9 @@ export default {
             .then((res) => {
               if (res != null) {
                 that.isProvince = false;
-                //获取到的数据需要转换成Json字符串,这里我也不是很明白，在控制台调试的时候，获取到的数据都是[object,Object]这样的格式，所以我只能转换一下
                 let outdata = JSON.stringify(res);
-                //这里还需eval来处理一下字符串转为json对象，如此就能获取到数据了
                 let xqo = eval("(" + outdata + ")");
                 var getCityData = [];
-                //根据返回的数据，循环遍历出你要展示的数据
                 for (var i in xqo) {
                   getCityData.push({
                     value: parseInt(xqo[i].num),

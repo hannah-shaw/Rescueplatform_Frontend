@@ -325,6 +325,7 @@
           width="95"
         >
         </el-table-column>
+        <!--
         <el-table-column
           prop="conversionTime"
           label="转正日期"
@@ -332,7 +333,7 @@
           width="95"
         >
         </el-table-column>
-        <!--
+        
         <el-table-column
           prop="beginContract"
           label="合同起始日期"
